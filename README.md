@@ -2,3 +2,4 @@
 ## TEAM MEMBERS
  * Davide Michelon
  * Lorenzo Cavada
+ * Alessandro Fontanella
