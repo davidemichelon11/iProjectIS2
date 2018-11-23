@@ -1,0 +1,24 @@
+{
+  "name": "iprojectis2",
+  "version": "1.0.0",
+  "description": "* Lorenzo Cavada (193579)\r  * Michelon Davide (194249)",
+  "main": "app.js",
+  "scripts": {
+	"start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidemichelon11/iProjectIS2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidemichelon11/iProjectIS2/issues"
+  },
+  "homepage": "https://github.com/davidemichelon11/iProjectIS2#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
