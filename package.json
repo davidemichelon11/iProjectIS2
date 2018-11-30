@@ -4,7 +4,7 @@
   "description": "* Lorenzo Cavada (193579)\r  * Michelon Davide (194249)",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node server.js",
     "test": "jest"
   },
   "repository": {
@@ -20,7 +20,8 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "uniqid": "^5.0.3"
   },
   "jest": {
     "verbose": true,

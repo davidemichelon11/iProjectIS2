@@ -11,7 +11,7 @@ express().use(bodyParser.urlencoded)
 examsRoutes.route('/')
 //get all exams
 .get(async function (req, res) {
-   
+   console.log('in get students')
 })
 //add a new exam
 .post(async function (req, res) {
