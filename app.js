@@ -12,6 +12,7 @@ app.get('/', function(req, res) {
 	res.send('Hello! The API is at /v1');
 });
 
+
 //routes V1
 var routesV1 = require('./app/routes/apisV1');
 app.use('/v1', routesV1);
