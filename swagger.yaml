@@ -1,0 +1,963 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: "iprojectIS2/swagger"
+  description: Api's for the project.
+  license:
+    name: MIT
+    url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
+host: iprojectis2.herokuapp.com
+basePath: "/v1"
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+
+  /professors:
+    x-summary: /professors
+    get:
+      summary: List of Professors
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idProfessor"
+        type: "integer"
+      - in: "query"
+        name: "nameProfessor"
+        type: "string"
+      - in: "query"
+        name: "emailProfessor"
+        type: "string"
+        
+
+      responses:
+        200:
+          description: Successful Response
+          schema: 
+            $ref: "#/definitions/Professors"
+
+
+    post:
+      summary: Create Professor
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Professors object"
+        required: true
+        schema:
+          $ref: "#/definitions/Professors" 
+      responses:
+        201:
+          description: 'succesful'
+        405:
+          description: "Invalid input"
+           
+
+    delete:
+      summary: Delete Professor
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idProfessor"
+        type: "integer"
+        required: true
+        
+      responses:
+        200: 
+          description: 'valid'
+        400:
+          description: 'Invalid ID'
+        404: 
+          description: 'not found'
+
+            
+    put:
+      summary: Update Professor
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Update Professor"
+        required: true
+        schema:
+          $ref: "#/definitions/Professors"
+
+      responses:
+        201:
+          description: 'valid'
+        400:
+          description: "Invalid test supplied"
+        404:
+          description: "Test not found"
+          
+  /students:
+    x-summary: /students
+    get:
+      summary: List of Students
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idStudent"
+        type: "integer"
+      - in: "query"
+        name: "nameStudent"
+        type: "string"
+      - in: "query"
+        name: "emailStudent"
+        type: "string"
+      
+      responses:
+        200:
+          description: Successful Response
+          schema: 
+            $ref: "#/definitions/Students"
+
+
+    post:
+      summary: Create Student
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Student object"
+        required: true
+        schema:
+          $ref: "#/definitions/Students" 
+      responses:
+        201:
+          description: 'succesful'
+        405:
+          description: "Invalid input"
+           
+
+    delete:
+      summary: Delete Student
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idStudent"
+        type: "integer"
+        required: true
+      responses:
+        200: 
+          description: 'valid'
+        400:
+          description: 'Invalid ID'
+        404: 
+          description: 'not found'
+
+    put:
+      summary: Update Student
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Update Student"
+        required: true
+        schema:
+          $ref: "#/definitions/Students"
+      responses:
+        201:
+          description: 'valid'
+        400:
+          description: "Invalid test supplied"
+        404:
+          description: "Test not found"
+
+
+  /tests:
+    x-summary: /tests
+    get:
+      summary: List of Tests
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idTest"
+        type: "integer"
+      - in: "query"
+        name: "nameTest"
+        type: "string"
+      - in: "query"
+        name: "idQuestion"
+        type: "integer"
+
+      responses:
+        200:
+          description: Successful Response
+          schema: 
+            $ref: "#/definitions/Tests"
+          
+
+    post:
+      summary: Create Test
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Test object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Tests" 
+      responses:
+        201:
+          description: 'succesful'
+        405:
+          description: "Invalid input"
+           
+
+    delete:
+      summary: Delete Test
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idTest"
+        type: "integer"
+        required: true
+
+      responses:
+        200: 
+          description: 'valid'
+        400:
+          description: 'Invalid ID'
+        404: 
+          description: 'not found'
+
+            
+    put:
+      summary: Update Test
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Update Test"
+        required: true
+        schema:
+          $ref: "#/definitions/Tests"
+
+      responses:
+        201:
+          description: 'valid'
+        400:
+          description: "Invalid test supplied"
+        404:
+          description: "Test not found"
+          examples:
+            application/json: 
+            
+
+  /exams:
+    x-summary: /exams
+    get:
+      summary: List of Exams
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idExams"
+        type: "integer"
+      - in: "query"
+        name: "nameExams"
+        type: "string"
+      - in: "query"
+        name: "idTest"
+        type: "integer"
+      - in: "query"
+        name: "idProfessor"
+        type: "integer"
+      - in: "query"
+        name: "nameProfessor"
+        type: "string"
+      - in: "query"
+        name: "idCourse"
+        type: "integer"
+      - in: "query"
+        name: "nameCourse"
+        type: "string"
+      - in: "query"
+        name: "exam-type"
+        type: "string"
+        enum:
+        - "oral"
+        - "write"
+        - "practical"
+      responses:
+        200:
+          description: 'Successful Response'
+          schema: 
+            $ref: "#/definitions/Exams"
+    post:
+      summary: Create Exam
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Exam object that needs to be added"
+        schema:
+          $ref: "#/definitions/Exams"
+         
+      responses:
+        201:
+          description: 'Succesful'
+        405:
+          description: "Invalid input"
+   
+    delete:
+      summary: Delete Exam
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idExam"
+        type: "integer"
+        required: true
+      
+      responses:
+        200: 
+          description: 'Valid'
+        400:
+          description: 'Invalid ID'
+        404: 
+          description: 'Not found'
+            
+    put:
+      summary: Update Exams
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Update Exam"
+        schema:
+          $ref: "#/definitions/Exams"
+      responses:
+        201:
+          description: 'Valid'
+        400:
+          description: "Invalid exam supplied"
+        404:
+          description: "Exam not found"           
+
+
+  /assignments:
+    x-summary: /assignments
+    get:
+      summary: List of Assignments
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idAssignments"
+        type: "integer"
+      - in: "query"
+        name: "nameAssignments"
+        type: "string"
+      - in: "query"
+        name: "idTest"
+        type: "integer"
+      - in: "query"
+        name: "idProfessor"
+        type: "integer"
+      - in: "query"
+        name: "nameProfessor"
+        type: "string"
+      - in: "query"
+        name: "idCourse"
+        type: "integer"
+      - in: "query"
+        name: "nameCourse"
+        type: "string"
+      - in: "query"
+        name: "obligatory"
+        type: "boolean"
+
+      responses:
+        200:
+          description: Successful Response
+          schema: 
+            $ref: "#/definitions/Assignments"
+
+
+    post:
+      summary: Create Assignment
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Assignments object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Assignments" 
+          
+      responses:
+        201:
+          description: 'succesful'
+        405:
+          description: "Invalid input"
+      
+    delete:
+      summary: Delete Assignments
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idAssignments"
+        type: "integer"
+        required: true
+      
+      responses:
+        200: 
+          description: 'valid'
+        400:
+          description: 'Invalid ID'
+        404: 
+          description: 'not found'
+
+            
+    put:
+      summary: Update Assignment
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Update Test"
+        required: true
+        schema:
+          $ref: "#/definitions/Assignments"
+         
+      responses:
+        201:
+          description: 'valid'
+        400:
+          description: "Invalid assignment supplied"
+        404:
+          description: "Assignment not found"
+
+  /workgroups:
+    x-summary: /workgroups
+    get:
+      summary: List of Workgroups
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idWorkgroup"
+        type: "integer"
+      - in: "query"
+        name: "nameWorkgroup"
+        type: "string"
+      responses:
+        200:
+          description: Successful Response
+          schema: 
+            $ref: "#/definitions/Workgroups"
+
+    post:
+      summary: Create Workgroup
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Workgroups object"
+        required: true
+        schema:
+          $ref: "#/definitions/Workgroups" 
+         
+      responses:
+        201:
+          description: 'succesful'
+        405:
+          description: "Invalid input"
+           
+    delete:
+      summary: Delete Workgroup
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idWorkgroup"
+        type: "integer"
+        required: true
+      
+      responses:
+        200: 
+          description: 'valid'
+        400:
+          description: 'Invalid ID'
+        404: 
+          description: 'not found'
+
+
+    put:
+      summary: Update Workgroup
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Update Workgroup"
+        required: true
+        schema:
+          $ref: "#/definitions/Workgroups"
+         
+      responses:
+        201:
+          description: 'valid'
+        400:
+          description: "Invalid assignment supplied"
+        404:
+          description: "Assignment not found"  
+
+  /workgroups/idWorkgroup/posts:
+    x-summary: /workgroups/{idWorkgroup}/posts
+    get:
+      summary: List of Posts in a Workgroup
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idWorkgroup"
+        type: "integer"
+      - in: "query"
+        name: "nameWorkgroup"
+        type: "string"
+      - in: "query"
+        name: "idPost"
+        type: "integer"
+ 
+
+      responses:
+        200:
+          description: Successful Response
+          schema: 
+            $ref: "#/definitions/Workgroups|idWorkgoup|posts"
+
+
+    post:
+      summary: Create Posts in Workgroup 
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Workgroups/object object"
+        required: true
+        schema:
+          $ref: "#/definitions/Workgroups|idWorkgoup|posts" 
+      
+      responses:
+        201:
+          description: 'succesful'
+        405:
+          description: "Invalid input"
+
+
+    delete:
+      summary: Delete Post in Workgoup
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idPost"
+        type: "integer"
+        required: true
+
+      responses:
+        200: 
+          description: 'valid'
+        400:
+          description: 'Invalid ID'
+        404: 
+          description: 'not found'
+
+
+    put:
+      summary: Update Post in Workgroup
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Workgroups/object object"
+        required: true
+        schema:
+          $ref: "#/definitions/Workgroups|idWorkgoup|posts" 
+         
+      responses:
+        201:
+          description: 'valid'
+        400:
+          description: "Invalid assignment supplied"
+        404:
+          description: "Assignment not found"  
+
+  /books:
+    x-summary: /books
+    get:
+      summary: List of Books
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idBook"
+        type: "integer"
+      - in: "query"
+        name: "title"
+        type: "string"
+      - in: "query"
+        name: "idCourse"
+        type: "integer"
+      - in: "query"
+        name: "nameCourse"
+        type: "string"
+
+      responses:
+        200:
+          description: Successful Response
+          schema: 
+            $ref: "#/definitions/Books"
+
+
+    post:
+      summary: Create Book
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Books object"
+        required: true
+        schema:
+          $ref: "#/definitions/Books" 
+      
+         
+      responses:
+        201:
+          description: 'succesful'
+        405:
+          description: "Invalid input"
+
+    delete:
+      summary: Delete Book
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idBook"
+        type: "integer"
+        
+      responses:
+        200: 
+          description: 'valid'
+        400:
+          description: 'Invalid ID'
+        404: 
+          description: 'not found'
+
+
+    put:
+      summary: Update Book
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Books object"
+        required: true
+        schema:
+          $ref: "#/definitions/Books" 
+          
+      responses:
+        201:
+          description: 'valid'
+        400:
+          description: "Invalid assignment supplied"
+        404:
+          description: "Assignment not found"   
+
+            
+  /courses:
+    x-summary: /courses
+    get:
+      summary: List of Courses
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idCourse"
+        type: "integer"
+      - in: "query"
+        name: "nameCourse"
+        type: "string"
+      - in: "query"
+        name: "idProfessor"
+        type: "integer"
+
+      responses:
+        200:
+          description: Successful Response
+          schema: 
+            $ref: "#/definitions/Courses"
+
+
+    post:
+      summary: Create Course
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Course object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Courses" 
+         
+      responses:
+        201:
+          description: 'successful'
+        405:
+          description: "Invalid input"
+           
+            
+    delete:
+      summary: Delete Course
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idCourse"
+        type: "integer"
+        required: true
+      
+      responses:
+        200: 
+          description: 'valid'
+        400:
+          description: 'Invalid ID'
+        404: 
+          description: 'not found'
+
+
+    put:
+      summary: Update Course
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Update Test"
+        required: true
+        schema:
+          $ref: "#/definitions/Assignments"
+         
+      responses:
+        201:
+          description: 'valid'
+        400:
+          description: "Invalid course supplied"
+        404:
+          description: "Course not found"
+
+
+
+
+definitions:
+
+  Students:
+    type: "object"
+    properties:
+      idStudent:
+        type: "integer"
+      nameStudent:
+        type: "string"
+      emailStudent: 
+        type: "string"
+        format: "email"
+      password:
+        type: "string"
+
+  Professors:
+    type: "object"
+    properties:
+      idProfessor:
+        type: "integer"
+      nameProfessor:
+        type: "integer"
+      emailProfessor:
+        type: "string"
+        format: "email"
+      password:
+        type: "string"
+
+  Tests: 
+   type: "object"
+   properties:
+    idTest:
+      type: "integer"
+    nameTest: 
+      type: "string"
+    question:
+      type: "array"
+      items: 
+        type: "object"
+        properties:
+          idQuestion:
+            type: "integer"
+          text: 
+            type: "string"
+
+
+  Exams: 
+   type: "object"
+   properties:
+    idExam:
+      type: "integer"
+    nameExam: 
+      type: "string"
+    idProfessor:
+      type: "integer"
+    nameProfessor: 
+      type: "string"
+    idCourse: 
+      type: "integer"
+    nameCourse: 
+      type: "string"
+    deadline:
+      type: "string"
+      format: "date-time"
+    examType:
+      type: "string"
+      description: "Type of Exam"
+      enum:
+        - "oral"
+        - "write"
+        - "practical"
+  
+  Assignments:
+    type: "object"
+    properties:
+      idAssignment:
+        type: "integer"
+      nameAssignment: 
+        type: "string"
+      idTest:
+        type: "integer"
+      idProfessor:
+        type: "integer"
+      nameProfessor: 
+        type: "string"
+      idCourse: 
+        type: "integer"
+      nameCourse: 
+        type: "string"
+      deadline:
+        type: "string"
+        format: "date-time"
+      obligatory:
+        type: "boolean"
+        default: false
+
+  Workgroups:
+    type: "object"
+    properties:
+      idWorkgroup:
+        type: "integer"
+      nameWorkgroup: 
+        type: "string"
+      Members:
+        type: "array"
+        items: 
+          type: "object"
+          properties:
+            idStudent:
+              type: "integer"
+            nameStudent:
+              type: "string"
+            
+  Workgroups|idWorkgoup|posts:
+    type: "object"
+    properties:
+      idWorkgroup:
+        type: "integer"
+      nameWorkgroup: 
+        type: "string"
+      idPost:
+        type: "integer"
+      Posts:
+        type: "array"
+        items: 
+          type: "object"
+          properties:
+            idStudent:
+              type: "integer"
+            nameStudent:
+              type: "string"
+            message: 
+              type: "string"
+  
+  Books:
+    type: "object"
+    properties:
+      idBook:
+        type: "integer"
+      title: 
+        type: "string"
+      idStudent:
+        type: "integer"
+      nameStudent: 
+        type: "string"
+      idCourse: 
+        type: "integer"
+      nameCourse: 
+        type: "string"
+      sold:
+        type: "boolean"
+        default: false
+        
+  Courses:
+    type: "object"
+    properties:
+      idCourse:
+        type: "integer"
+      nameCourse: 
+        type: "string"
+      idProfessor:
+        type: "integer"
+      nameProfessor: 
+        type: "string"
+      CFU: 
+        type: "integer"
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
