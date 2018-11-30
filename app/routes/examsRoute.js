@@ -37,4 +37,36 @@ examsRoutes.route('/')
     }    
 })
 
+.delete(async function (req, res) {  
+    res.status(400).send('Error 400: syntax error') //serve perche se non passo parametri mi dia un errore di sintassi
+})//metodo da valutare perchè ora ho due delete per la stessa risorsa di cui solo una documentata su apiary
+
+examsRoutes.route('/:id')
+.delete(async function (req, res) {   
+    let result = await Exam.delete(req.params.id)
+
+    if(result === 204)
+        res.status(204).send('Success')
+    else if(result === 404)
+        res.status(404).send('Error 404: element not found')
+})
+/*
+.put(async function (req, res) { 
+    var editExam = new Exam()
+
+    editExam.id = req.params.id   
+    editExam.name = req.body.name
+    editExam.profName = req.body.profName
+    editExam.courseName = req.body.courseName
+    editExam.deadline = req.body.deadline
+    editExam.examType = req.body.examType
+
+    let result = Exam.put(editExam)
+
+    if(result === 204)
+        res.status(204).send('Success')
+    else if(result === 404)
+        res.status(404).send('Error 404: element not found')
+})*/
+
 module.exports = examsRoutes;
