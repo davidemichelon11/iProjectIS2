@@ -31,20 +31,40 @@ class Test {
             return aggregateQuestions()
 
         let matchingQuestions = aggregateQuestions().filter(q => {
-            return criterias.id == undefined ? true : q.id === criterias.id
-                && criterias.text == undefined ? true : q.text === criterias.text
+            return (criterias.id == undefined ? true : q.id === criterias.id)
+                && (criterias.text == undefined ? true : q.text === criterias.text)
         })
         return matchingQuestions
     }
 
     //add a new test
-    static async addTest(criterias) {/*TODO: improve this method and handle cases*/
-        criterias.id = uniqid()
-        if (Object.keys(criterias).length == 8) {
-            testTable.push(criterias)
-            return true
+    static async addTest(criterias) {
+        if (criterias != undefined) {
+            criterias.id = uniqid()
+            if (Object.keys(criterias).length == 8) {
+                testTable.push(criterias)
+                return true
+            }
         }
         return false
+    }
+
+    //remove tests that respect criterias, if no criterias are defined all tests will be removed
+    //returns the deleted tests or empty array if no tests are found with the given criterias
+    static async removeTest(criterias) {
+        if(criterias != undefined && criterias.id != undefined){
+            var iterationCounter = 0
+            var testsRemoved = []
+            testTable.forEach(test => {
+                if(test.id == criterias.id)
+                    testsRemoved.push(testTable.splice(iterationCounter,1))
+                iterationCounter++
+            });
+            return testsRemoved;
+        }
+        else
+            return testTable.splice(0, testTable.length);
+        
     }
 }
 
