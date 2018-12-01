@@ -21,6 +21,7 @@ class Assignment{
             &&     criterias.idCourse == undefined ? true : u.idCourse === criterias.idCourse
             &&     criterias.nameCourse == undefined ? true : u.nameCourse === criterias.nameCourse
             &&     criterias.deadline == undefined ? true : u.deadline === criterias.deadline
+            &&     criterias.obligatory == undefined ? true : u.obligatory === criterias.obligatory
         });
         return assignments
     }
@@ -53,6 +54,7 @@ class Assignment{
         if(criterias.idCourse != undefined) assignmentTable[assignmentIndex].idCourse = criterias.idCourse
         if(criterias.nameCourse != undefined) assignmentTable[assignmentIndex].nameCourse = criterias.nameCourse
         if(criterias.deadline != undefined) assignmentTable[assignmentIndex].deadline = criterias.deadline
+        if(criterias.obligatory != undefined) assignmentTable[assignmentIndex].obligatory = criterias.obligatory
         
         return 200
     }

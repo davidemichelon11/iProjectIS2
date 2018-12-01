@@ -25,9 +25,11 @@ assignmentsRoute.route('/')
     assignment.nameProfessor = req.body.nameProfessor
     assignment.nameCourse = req.body.nameCourse
     assignment.deadline = req.body.deadline
+    assignment.obligatory = req.body.obligatory
     if(assignment.name === undefined || assignment.idTest === undefined 
         || assignment.idProfessor === undefined || assignment.nameProfessor === undefined 
-        || assignment.idCourse === undefined || assignment.nameCourse === undefined || assignment.deadline === undefined){               
+        || assignment.idCourse === undefined || assignment.nameCourse === undefined 
+        || assignment.deadline === undefined || assignment.obligatory === undefined){               
         res.status(403).send('Error 403: Not all parameters given')
     }else{
         Assignment.addAssignment(assignment)
@@ -68,6 +70,7 @@ assignmentsRoute.route('/:id')
     editAssignment.nameProfessor = req.body.nameProfessor
     editAssignment.nameCourse = req.body.nameCourse
     editAssignment.deadline = req.body.deadline
+    editAssignment.obligatory = req.body.obligatory
 
     let result = await Assignment.put(editAssignment)
     
