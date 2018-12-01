@@ -9,7 +9,7 @@ routesV1.get('/', function(req, res) {
 	res.json({ message: 'ROUTESV1 WORKS!' });
 });
 
-var examsRoutes = require('./examsRoute');
-routesV1.use('/exams', examsRoutes);
+var assignmentsRoute = require('./assignmentsRoute');
+routesV1.use('/assignments', assignmentsRoute);
 
 module.exports = routesV1;
