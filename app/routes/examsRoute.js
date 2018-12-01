@@ -12,7 +12,7 @@ examsRoutes.route('/')
 //get all exams
 .get(async function (req, res) {
     let exams = await Exam.getAll()
-    res.json(exams)
+    res.status(200).json(exams)
 })
 //add a new exam
 .post(async function (req, res) {
