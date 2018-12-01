@@ -18,11 +18,14 @@ testsRoutes.route('/')
 //add the specified test, if the criterias doesn't respect the format 403 status will be responded
 .post(async function (req, res) {
     var isOk = await Test.addTest(req.body);
-    isOk ? res.status(200).json({"status":"OK"}) : res.status(403).json({"status":"NOT OK"})
+    isOk ? res.status(200).json({"status":"OK"}) : res.status(401).json({"status":"NOT OK"})
 })
 .delete(async function (req, res) {
     var removedTests = await Test.removeTest(req.query);
     JSON.stringify(removedTests) === "[]" ? res.status(404).json({"STATUS":"ID NOT FOUND"}) : res.status(200).json(removedTests);
+})
+.put(async function (req, res) {
+    await Test.updateTest(req.body) ? res.status(200).json({"STATUS":"WELL MODIFIED"}) : res.status(404).json({"STATUS":"WRONG BODY"})
 })
 
 module.exports = testsRoutes

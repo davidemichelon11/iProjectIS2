@@ -20,7 +20,7 @@ class Test {
 
         let matchingTests = testTable.filter(t => {
             return (criterias.nameExam == undefined ? true : t.nameExam === criterias.nameExam)
-                && (criterias.id == undefined ? true : t.id === criterias.id)
+                && (criterias.idTest == undefined ? true : t.idTest === criterias.idTest)
         })
         return matchingTests
     }
@@ -31,7 +31,7 @@ class Test {
             return aggregateQuestions()
 
         let matchingQuestions = aggregateQuestions().filter(q => {
-            return (criterias.id == undefined ? true : q.id === criterias.id)
+            return (criterias.idTest == undefined ? true : q.idTest === criterias.idTest)
                 && (criterias.text == undefined ? true : q.text === criterias.text)
         })
         return matchingQuestions
@@ -40,8 +40,8 @@ class Test {
     //add a new test
     static async addTest(criterias) {
         if (criterias != undefined) {
-            criterias.id = uniqid()
-            if (Object.keys(criterias).length == 8) {
+            criterias.idTest = uniqid()
+            if (Object.keys(criterias).length == 3) {
                 testTable.push(criterias)
                 return true
             }
@@ -52,19 +52,34 @@ class Test {
     //remove tests that respect criterias, if no criterias are defined all tests will be removed
     //returns the deleted tests or empty array if no tests are found with the given criterias
     static async removeTest(criterias) {
-        if(criterias != undefined && criterias.id != undefined){
+        if(criterias != undefined && criterias.idTest != undefined){
             var iterationCounter = 0
             var testsRemoved = []
             testTable.forEach(test => {
-                if(test.id == criterias.id)
+                if(test.idTest == criterias.idTest)
                     testsRemoved.push(testTable.splice(iterationCounter,1))
                 iterationCounter++
             });
-            return testsRemoved;
+            return testsRemoved
         }
         else
-            return testTable.splice(0, testTable.length);
-        
+            return testTable.splice(0, testTable.length)
+    }
+
+    static async updateTest(criterias){
+        if(criterias != undefined && criterias.idTest != undefined && criterias.nameTest != undefined 
+            && criterias.question != undefined){
+                var idFound = false
+                testTable.forEach(test => {
+                    if(test.idTest === criterias.idTest){
+                        test.nameTest = criterias.nameTest
+                        test.question = criterias.question
+                        idFound = true
+                    }
+                });
+                return idFound
+            }
+            return false;
     }
 }
 
