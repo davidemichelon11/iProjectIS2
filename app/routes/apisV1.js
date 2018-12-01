@@ -8,9 +8,6 @@ routesV1.get('/', function(req, res) {
 	res.json({ message: 'ROUTESV1 WORKS!' });
 });
 
-var examsRoutes = require('./examsRoute');
-routesV1.use('/exams', examsRoutes);
-
 var studentsRoutes = require('./studentsRoute');
 routesV1.use('/students', studentsRoutes);
 
