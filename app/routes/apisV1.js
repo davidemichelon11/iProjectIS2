@@ -9,6 +9,11 @@ routesV1.get('/', function(req, res) {
 	res.json({ message: 'ROUTESV1 WORKS!' });
 });
 
+//Route for exams
+var examsRoute = require('./examsRoute');
+routesV1.use('/exams', examsRoute);
+
+//Route for assignments
 var assignmentsRoute = require('./assignmentsRoute');
 routesV1.use('/assignments', assignmentsRoute);
 
