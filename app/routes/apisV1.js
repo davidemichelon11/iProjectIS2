@@ -1,5 +1,4 @@
 //Routes to /V1 of every resource
-
 const express = require('express');
 var routesV1 = express.Router();
 
@@ -9,7 +8,7 @@ routesV1.get('/', function(req, res) {
 	res.json({ message: 'ROUTESV1 WORKS!' });
 });
 
-var examsRoutes = require('./examsRoute');
-routesV1.use('/exams', examsRoutes);
+var professorsRoutes = require('./professorsRoute');
+routesV1.use('/professors', professorsRoutes);
 
 module.exports = routesV1;
