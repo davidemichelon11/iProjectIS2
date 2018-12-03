@@ -1,6 +1,6 @@
 //Route to all paths of test
 const express = require('express');
-const Test = require('../models/test');
+const Test = require('../models/tests');
 const bodyParser = require('body-parser');
 const testsRoutes = express.Router();
 
@@ -13,7 +13,7 @@ testsRoutes.route('/')
 .get(async function (req, res) {
     var criterias = req.query;
     var response = await Test.findTestsByCriterias(criterias)
-    JSON.stringify(response) === "[]" ? res.status(404).json({"STATUS":"NOT FOUND"}) : res.status(200).json(response)
+    res.status(200).json(response)
 })
 //add the specified test, if the criterias doesn't respect the format 403 status will be responded
 .post(async function (req, res) {
@@ -22,10 +22,10 @@ testsRoutes.route('/')
 })
 .delete(async function (req, res) {
     var removedTests = await Test.removeTest(req.query);
-    JSON.stringify(removedTests) === "[]" ? res.status(404).json({"STATUS":"ID NOT FOUND"}) : res.status(200).json(removedTests);
+    JSON.stringify(removedTests) === "[]" ? res.status(401).json({"STATUS":"ID NOT FOUND"}) : res.status(200).json(removedTests);
 })
 .put(async function (req, res) {
-    await Test.updateTest(req.body) ? res.status(200).json({"STATUS":"WELL MODIFIED"}) : res.status(404).json({"STATUS":"WRONG BODY"})
+    await Test.updateTest(req.body) ? res.status(200).json({"STATUS":"WELL MODIFIED"}) : res.status(401).json({"STATUS":"WRONG BODY"})
 })
 
 module.exports = testsRoutes

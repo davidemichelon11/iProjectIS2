@@ -39,13 +39,13 @@ class Test {
 
     //add a new test
     static async addTest(criterias) {
-        if (criterias != undefined) {
-            criterias.idTest = uniqid()
-            if (Object.keys(criterias).length == 3) {
-                testTable.push(criterias)
-                return true
-            }
+        //if (criterias != undefined && criterias.idTest == undefined) 
+        //   criterias.idTest = uniqid()
+        if (Object.keys(criterias).length == 3) {
+            testTable.push(criterias)
+            return true
         }
+        
         return false
     }
 
@@ -67,8 +67,8 @@ class Test {
     }
 
     static async updateTest(criterias){
-        if(criterias != undefined && criterias.idTest != undefined && criterias.nameTest != undefined 
-            && criterias.question != undefined){
+        if(criterias != undefined && Object.keys(criterias).length == 3 && criterias.idTest != undefined 
+            && criterias.nameTest != undefined && criterias.question != undefined){
                 var idFound = false
                 testTable.forEach(test => {
                     if(test.idTest === criterias.idTest){
