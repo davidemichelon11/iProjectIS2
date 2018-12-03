@@ -1,5 +1,6 @@
 const app     = require('./app')
 const examsRoute = require('./app/routes/examsRoute')
+
 test('app should be defined',()=>{
     expect(app).toBeDefined();
 })
