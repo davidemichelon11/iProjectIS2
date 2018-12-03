@@ -13,7 +13,7 @@ describe('POST /tests', function () {
             .post('/v1/tests')
             .send(data)
             .set('Accept', 'application/json')
-            .expect(200)
+            .expect(201)
             .end((err) => {
                 if (err) return done(err);
                 done();
@@ -32,7 +32,7 @@ describe('POST /tests', function () {
             .post('/v1/tests')
             .send(data)
             .set('Accept', 'application/json')
-            .expect(401)
+            .expect(405)
             .end((err) => {
                 if (err) return done(err);
                 done();
@@ -66,7 +66,7 @@ describe('UPDATE /tests', function () {
         request(app)
             .put('/v1/tests')
             .send(data)
-            .expect(200, done)
+            .expect(201, done)
     });
 });
 describe('UPDATE /tests', function () {
@@ -80,7 +80,7 @@ describe('UPDATE /tests', function () {
         request(app)
             .put('/v1/tests')
             .send(data)
-            .expect(401, done)
+            .expect(400, done)
     });
 });
 
@@ -88,13 +88,13 @@ describe('DELETE /tests/4321', function () {
     it('respond with json containing the removed tests', function (done) {
         request(app)
             .delete('/v1/tests/4321')
-            .expect(401, done)
+            .expect(400, done)
     });
 });
 describe('DELETE /tests/' + idTest, function () {
     it('respond with json containing the removed tests', function (done) {
         request(app)
             .delete('/v1/tests/'+idTest)
-            .expect(200, done)
+            .expect(204, done)
     });
 });

@@ -18,20 +18,20 @@ testsRoutes.route('/')
 //add the specified test, if the criterias doesn't respect the format 403 status will be responded
 .post(async function (req, res) {
     var isOk = await Test.addTest(req.body);
-    isOk ? res.status(200).json({"status":"OK"}) : res.status(401).json({"status":"NOT OK"})
+    isOk ? res.status(201).json({"status":"OK"}) : res.status(405).json({"status":"NOT OK"})
 })
 .delete(async function (req, res) {
     var removedTests = await Test.removeTest(req.query);
-    JSON.stringify(removedTests) === "[]" ? res.status(401).json({"STATUS":"ID NOT FOUND"}) : res.status(200).json(removedTests);
+    JSON.stringify(removedTests) === "[]" ? res.status(400).json({"STATUS":"ID NOT FOUND"}) : res.status(204).json(removedTests);
 })
 .put(async function (req, res) {
-    await Test.updateTest(req.body) ? res.status(200).json({"STATUS":"WELL MODIFIED"}) : res.status(401).json({"STATUS":"WRONG BODY"})
+    await Test.updateTest(req.body) ? res.status(201).json({"STATUS":"WELL MODIFIED"}) : res.status(400).json({"STATUS":"WRONG BODY"})
 })
 
 testsRoutes.route('/:idTest')
 .delete(async function (req, res) {
     var removedTests = await Test.removeTest(req.params);
-    JSON.stringify(removedTests) === "[]" ? res.status(401).json({"STATUS":"ID NOT FOUND"}) : res.status(200).json(removedTests);
+    JSON.stringify(removedTests) === "[]" ? res.status(400).json({"STATUS":"ID NOT FOUND"}) : res.status(204).json(removedTests);
 })
 
 module.exports = testsRoutes

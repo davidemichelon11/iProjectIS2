@@ -10,7 +10,7 @@ routesV1.get('/', function(req, res) {
 })
 
 
-var testRoutes = require('./testRoute')
-routesV1.use('/tests', testRoutes)
+var testsRoutes = require('./testsRoute')
+routesV1.use('/tests', testsRoutes)
 
 module.exports = routesV1;
