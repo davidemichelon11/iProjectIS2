@@ -4,12 +4,10 @@ const app     = require('../../app')
 ///GET work
 test('GET / should return 200', async () => {
     const response = await request(app).get('/v1/assignments');
-    //console.log(JSON.stringify(response))
     expect(response.statusCode).toBe(200);
 });
 
-describe('CRUD on /v1/assignment', () => {
-  const Assignment = require('../models/assignment');  
+describe('CRUD on /v1/assignment', () => {  
   test('POST v1/assignments ', async () => {
     const response = await request(app).post('/v1/assignments/')
                                         .send({
@@ -65,6 +63,11 @@ describe('CRUD on /v1/assignment', () => {
     expect(response.status).toBe(404);
   });
 
+  test('DELETE WITH NO PARAMS v1/assignments ', async () => {
+    const response = await request(app).delete('/v1/assignments/')    
+    expect(response.status).toBe(400);
+  });
+
   test('UPDATE WORK v1/assignments ', async () => {
     var answare = await request(app).post('/v1/assignments/')
     .send({
@@ -104,16 +107,15 @@ describe('CRUD on /v1/assignment', () => {
     
     expect(response.status).toBe(404);
   });
+
+  test('UPDATE WITH NO PARAMS v1/assignments ', async () => {
+    const response = await request(app).put('/v1/assignments/')
+                                        .send({
+                                            name: 'Programmazione',
+                                            idTest: 'vkjdsgyy8yuas',
+                                        });  
+  
+    
+    expect(response.status).toBe(400);
+  });
 });
-
-
-
-    /*console.log('\n\n\n')
-    console.log(JSON.stringify(response))         
-    TROVO L'ID DELL'ULTIMO INSERIMENTO ESEGUITO
-    var answare = await request(app).get('/v1/assignments');
-    answare = JSON.stringify(answare)
-    answare = JSON.parse(answare)
-    answare = JSON.parse(answare.text)
-    console.log(answare[0].id) 
-    console.log('\n\n\n')    */    
