@@ -28,4 +28,10 @@ testsRoutes.route('/')
     await Test.updateTest(req.body) ? res.status(200).json({"STATUS":"WELL MODIFIED"}) : res.status(401).json({"STATUS":"WRONG BODY"})
 })
 
+testsRoutes.route('/:idTest')
+.delete(async function (req, res) {
+    var removedTests = await Test.removeTest(req.params);
+    JSON.stringify(removedTests) === "[]" ? res.status(401).json({"STATUS":"ID NOT FOUND"}) : res.status(200).json(removedTests);
+})
+
 module.exports = testsRoutes

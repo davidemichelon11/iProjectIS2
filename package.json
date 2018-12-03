@@ -4,7 +4,7 @@
   "description": "* Lorenzo Cavada (193579)\r  * Michelon Davide (194249)",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node server.js",
     "test": "jest"
   },
   "repository": {
