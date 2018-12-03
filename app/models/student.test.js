@@ -7,13 +7,13 @@ test('GET / should return 200', async () => {
     expect(response.statusCode).toBe(200);
 });
 
-describe('CRUD on /v1/assignment', () => {  
+describe('CRUD on /v1/students', () => {  
   test('POST v1/students ', async () => {
     const response = await request(app).post('/v1/students/')
                                         .send({
                                             name: 'Davide',
                                             email: 'davide.michelon-1@studenti.unitn.it',
-                                            password: 'cisco2018'
+                                            password: 'cisco2018',
                                         });    
     expect(response.status).toBe(201);
   });
@@ -33,7 +33,7 @@ describe('CRUD on /v1/assignment', () => {
                                     .send({
                                         name: 'Davide',
                                         email: 'davide.michelon-1@studenti.unitn.it',
-                                        password: 'cisco2018'
+                                        password: 'cisco2018',
                                     });
       
     answer = await request(app).get('/v1/students');
@@ -63,7 +63,7 @@ describe('CRUD on /v1/assignment', () => {
                                     .send({
                                         name: 'Davide',
                                         email: 'davide.michelon-1@studenti.unitn.it',
-                                        password: 'cisco2018'
+                                        password: 'cisco2018',
                                     });
       
     answer = await request(app).get('/v1/students');
@@ -76,7 +76,7 @@ describe('CRUD on /v1/assignment', () => {
                                         .send({
                                             name: 'Davide',
                                             email: 'davide.michelon-1@studenti.unitn.it',
-                                            password: 'cisco2019'
+                                            password: 'cisco2019',
                                         });  
   
     
