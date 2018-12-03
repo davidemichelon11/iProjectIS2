@@ -15,8 +15,6 @@ describe('CRUD on /v1/assignment', () => {
                                             idTest: 'sjhbcab37gfuys',
                                             idCourse: 'hvgtgyuydsu878',
                                             idProfessor: 'hgf62trfyegw8',
-                                            nameProfessor: 'Barozzi',
-                                            nameCourse: 'Analisi I',
                                             deadline: '20181215',
                                             obligatory: 'true'
                                         });    
@@ -34,23 +32,21 @@ describe('CRUD on /v1/assignment', () => {
 
   test('DELETE WORK v1/assignments ', async () => {
     
-    var answare = await request(app).post('/v1/assignments/')
+    var answer = await request(app).post('/v1/assignments/')
     .send({
         name: 'Analisi',
         idTest: 'sjhbcab37gfuys',
         idCourse: 'hvgtgyuydsu878',
         idProfessor: 'hgf62trfyegw8',
-        nameProfessor: 'Barozzi',
-        nameCourse: 'Analisi I',
         deadline: '20181215',
         obligatory: 'true'
     });
       
-    answare = await request(app).get('/v1/assignments');
-    answare = JSON.stringify(answare)
-    answare = JSON.parse(answare)
-    answare = JSON.parse(answare.text)
-    var url = '/v1/assignments/' + answare[0].id
+    answer = await request(app).get('/v1/assignments');
+    answer = JSON.stringify(answer)
+    answer = JSON.parse(answer)
+    answer = JSON.parse(answer.text)
+    var url = '/v1/assignments/' + answer[0].id
 
     const response = await request(app).delete(url)
   
@@ -69,23 +65,21 @@ describe('CRUD on /v1/assignment', () => {
   });
 
   test('UPDATE WORK v1/assignments ', async () => {
-    var answare = await request(app).post('/v1/assignments/')
+    var answer = await request(app).post('/v1/assignments/')
     .send({
         name: 'Analisi',
         idTest: 'sjhbcab37gfuys',
         idCourse: 'hvgtgyuydsu878',
         idProfessor: 'hgf62trfyegw8',
-        nameProfessor: 'Barozzi',
-        nameCourse: 'Analisi I',
         deadline: '20181215',
         obligatory: 'true'
     });
       
-    answare = await request(app).get('/v1/assignments');
-    answare = JSON.stringify(answare)
-    answare = JSON.parse(answare)
-    answare = JSON.parse(answare.text)
-    var url = '/v1/assignments/' + answare[0].id
+    answer = await request(app).get('/v1/assignments');
+    answer = JSON.stringify(answer)
+    answer = JSON.parse(answer)
+    answer = JSON.parse(answer.text)
+    var url = '/v1/assignments/' + answer[0].id
 
     const response = await request(app).put(url)
                                         .send({
