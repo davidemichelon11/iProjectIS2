@@ -1,4 +1,7 @@
 # iProjectIS2
+
+[![Build Status](https://travis-ci.com/davidemichelon11/iProjectIS2.svg?token=esuvPctXeVnvnomxA3nB&branch=master)](https://travis-ci.com/davidemichelon11/iProjectIS2)
+
 ## TEAM MEMBERS
  * [Davide Michelon](https://github.com/davidemichelon11 "Profile")
  * [Lorenzo Cavada](https://github.com/CavadaLorenzo "Profile")
