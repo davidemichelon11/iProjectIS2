@@ -9,11 +9,9 @@ routesV1.get('/', function(req, res) {
 })
 
 
-//Route for exams
-var examsRoute = require('./examsRoute');
-routesV1.use('/exams', examsRoute);
+var examsRoutes = require('./examsRoute');
+routesV1.use('/exams', examsRoutes);
 
-//Route for assignments
 var assignmentsRoute = require('./assignmentsRoute');
 routesV1.use('/assignments', assignmentsRoute);
 
@@ -25,5 +23,9 @@ routesV1.use('/students', studentsRoutes);
 
 var professorsRoutes = require('./professorsRoute');
 routesV1.use('/professors', professorsRoutes);
+
+module.exports = routesV1;
+var workgroupsRoute = require('./workgroupsRoute');
+routesV1.use('/workgroups', workgroupsRoute);
 
 module.exports = routesV1;
