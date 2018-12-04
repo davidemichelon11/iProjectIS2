@@ -1,4 +1,4 @@
-const request = require('supertest'); //allow testing w/ good syntax
+const request = require('supertest') //allow testing w/ good syntax
 const app     = require('../../app')
 
 ///GET work
@@ -7,13 +7,13 @@ test('GET / should return 200', async () => {
     expect(response.statusCode).toBe(200);
 });
 
-describe('CRUD on /v1/professor', () => {  
+describe('CRUD on /v1/professors', () => {  
   test('POST v1/professors ', async () => {
     const response = await request(app).post('/v1/professors/')
                                         .send({
                                             name: 'Mario Rossi',
                                             email: 'mr@mail.com',
-                                            password: '1234',
+                                            password: '1234'
                                         });    
     expect(response.status).toBe(201);
   });
@@ -22,7 +22,7 @@ describe('CRUD on /v1/professor', () => {
     const response = await request(app).post('/v1/professors/')
                                         .send({
                                             name: 'Mario Bianchi',
-                                            email: 'aa@mail.com',
+                                            email: 'aa@mail.com'
                                         });    
     expect(response.status).toBe(403);
   });
@@ -33,7 +33,7 @@ describe('CRUD on /v1/professor', () => {
     .send({
       name: 'Mario Rossi',
       email: 'mr@mail.com',
-      password: '1234',
+      password: '1234'
     });
       
     answare = await request(app).get('/v1/professors');
@@ -63,7 +63,7 @@ describe('CRUD on /v1/professor', () => {
     .send({
       name: 'Mario Rossi',
       email: 'mr@mail.com',
-      password: '1234',
+      password: '1234'
     });
       
     answare = await request(app).get('/v1/professors');
@@ -75,7 +75,7 @@ describe('CRUD on /v1/professor', () => {
     const response = await request(app).put(url)
                                         .send({
                                             name: 'Mario Bianchi',
-                                            email: 'aa@mail.com',
+                                            email: 'aa@mail.com'
                                         });  
   
     
@@ -86,7 +86,7 @@ describe('CRUD on /v1/professor', () => {
     const response = await request(app).put('/v1/professors/thisiddoesntexist')
                                         .send({
                                           name: 'Mario Bianchi',
-                                          email: 'aa@mail.com',
+                                          email: 'aa@mail.com'
                                         });  
   
     
@@ -97,7 +97,7 @@ describe('CRUD on /v1/professor', () => {
     const response = await request(app).put('/v1/professors/')
                                         .send({
                                           name: 'Mario Bianchi',
-                                          email: 'aa@mail.com',
+                                          email: 'aa@mail.com'
                                         });  
   
     
