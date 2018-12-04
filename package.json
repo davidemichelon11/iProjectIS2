@@ -4,8 +4,8 @@
   "description": "* Lorenzo Cavada (193579)\r  * Michelon Davide (194249)",
   "main": "app.js",
   "scripts": {
-	"start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,14 @@
   "homepage": "https://github.com/davidemichelon11/iProjectIS2#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "jest": "^23.6.0",
+    "package.json": "^2.0.1",
+    "supertest": "^3.3.0",
+    "uniqid": "^5.0.3"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true
   }
 }
