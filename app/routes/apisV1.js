@@ -12,4 +12,10 @@ routesV1.get('/', function(req, res) {
 var examsRoutes = require('./examsRoute');
 routesV1.use('/exams', examsRoutes);
 
+var assignmentsRoute = require('./assignmentsRoute');
+routesV1.use('/assignments', assignmentsRoute);
+
+var workgroupsRoute = require('./workgroupsRoute');
+routesV1.use('/workgroups', workgroupsRoute);
+
 module.exports = routesV1;
