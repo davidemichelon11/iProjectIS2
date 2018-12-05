@@ -19,12 +19,13 @@ booksRoute.route('/')
 .post(async function(req, res){
     var book = new Book()
     book.title = req.body.title
+    book.idSolder = req.body.idSolder
     book.firstPrice = req.body.firstPrice
     book.lastPrice = req.body.lastPrice
     book.deadline = req.body.deadline
     book.sold = req.body.sold
     if(book.title === undefined || book.firstPrice === undefined || book.lastPrice === undefined
-        || book.deadline === undefined || book.sold === undefined){               
+        || book.deadline === undefined || book.sold === undefined || book.idSolder === undefined ){               
         res.status(403).send('Error 403: Not all parameters given')
     }else{
         Book.addBook(book)
@@ -59,6 +60,7 @@ booksRoute.route('/:id')
 
     editBook.id = req.params.id   
     editBook.title = req.body.title
+    editBook.idBuyer = req.body.idBuyer
     editBook.firstPrice = req.body.firstPrice
     editBook.lastPrice = req.body.lastPrice
     editBook.deadline = req.body.deadline

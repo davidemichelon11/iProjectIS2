@@ -46,6 +46,7 @@ class Book{
         if(bookIndex == -1)
             return 404
         if(criterias.title != undefined) bookTable[bookIndex].title = criterias.title
+        if(criterias.idBuyer != undefined) bookTable[bookIndex].idBuyer = criterias.idBuyer
         if(criterias.firstPrice != undefined) bookTable[bookIndex].firstPrice = criterias.firstPrice
         if(criterias.lastPrice != undefined) bookTable[bookIndex].lastPrice = criterias.lastPrice
         if(criterias.deadline != undefined) bookTable[bookIndex].deadline = criterias.deadline
