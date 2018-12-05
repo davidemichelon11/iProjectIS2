@@ -24,8 +24,10 @@ routesV1.use('/students', studentsRoutes);
 var professorsRoutes = require('./professorsRoute');
 routesV1.use('/professors', professorsRoutes);
 
-module.exports = routesV1;
 var workgroupsRoute = require('./workgroupsRoute');
 routesV1.use('/workgroups', workgroupsRoute);
+
+var booksRoute = require('./booksRoute');
+routesV1.use('/books', booksRoute);
 
 module.exports = routesV1;
