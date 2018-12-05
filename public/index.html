@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <style>
+            .myButton {
+                background-color:#a1c6d8a8;
+                border: 1px solid #83b7d1a8;
+                display:inline-block;
+                color: black;
+                cursor:pointer;
+                font-size:18px;
+                padding:13px 38px;
+            }
+
+            .myButton:hover {
+                background-color: #c4d9e4ec;
+                color: black;
+            }
+            
+            .myButton:active {
+                background-color: #a7c5d4ec;
+            }
+
+            .myButton:focus {
+                background-color: #a7c5d4ec;
+            }
+
+            .name{
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                padding: 1.3em;
+                text-align: right;
+            }
+
+            .titolo{
+                margin: 0;
+                padding: 1%;
+                background-color: #c1c1c1;
+            }
+
+            .corpo{
+                padding: 1%;
+                width: 100%;
+            }
+
+            body{
+                background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/06/HD-Minimalist-Pictures.jpg");
+                height: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="jumbotron text-center titolo">
+                <h1>iProjectIS2</h1>
+                <p>Project started on 30 October 2018</p> 
+        </div>
+        <div class="container corpo sfondo">
+            <div class="btn-group btn-group-justified">
+                <a href="/v1/students" class="btn btn-primary myButton">Student</a>
+                <a href="/v1/professors" class="btn btn-primary myButton">Professor</a>
+                <a href="/v1/exams" class="btn btn-primary myButton">Exam</a>
+                <a href="/v1/assignments" class="btn btn-primary myButton">Assignment</a>
+                <a href="/v1/tests" class="btn btn-primary myButton">Test</a>
+                <a href="/v1/workgroups" class="btn btn-primary myButton">Workgroup</a>     
+            </div>
+        </div>
+        <div class="name">
+            <p>Matteo Luca</p>
+            <p>Lorenzo Cavada</p>
+            <p>Davide Michelon</p>
+            <p>Alessandro Grassi</p>
+            <p>Alessandro Fontanella</p>
+        </div>
+    </body>
+
+
+</html>    
+
+  

@@ -10,9 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //test APIs
-app.get('/', function(req, res) {
-	res.send('Hello! The API is at /v1');
-});
+app.get('/', express.static('public/'));
 
 
 //routes V1
