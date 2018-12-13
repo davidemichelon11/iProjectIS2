@@ -21,6 +21,7 @@ examsRoutes.route('/')
     if(Object.keys(req.body).length < 5){
             res.status(403).send('Error 403: Not enough parmenters')
     }else{
+        newExam.id = req.body.id
         newExam.name = req.body.name
         newExam.profName = req.body.profName
         newExam.courseName = req.body.courseName

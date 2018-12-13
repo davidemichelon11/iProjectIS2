@@ -1,7 +1,6 @@
 var uniqid = require('uniqid');
 var Student = require('../models/student');
 var Exam = require('../models/exam');
-const fetch = require('node-fetch');
 
 
 var deliveriesTable = global.deliveriesTable;
@@ -21,33 +20,69 @@ class Delivery{
         }
         if(Object.keys(criterias).length == 4) {
             return  new Promise( (resolve, reject) => {
-                Delivery.checkStudent(criterias.idStudent).then(function(res) {
-                    if(res){
-                        deliveriesTable.push(criterias);
-                        resolve(true)
-                    }else{
-                        resolve(false)
-                    }
+                var responseExam;
+                Delivery.checkStudent(criterias.idStudent).then( async function() {
+                        //check if exam exist and deadline is after now
+                        responseExam = await new Promise((resolve, reject)=>{
+                            Delivery.checkExam(criterias.idExam).then(function(res){
+                                if(res){
+                                    deliveriesTable.push(criterias);
+                                    console.log('resolve true')
+                                    resolve(true)
+                                }
+                            }).catch(function(result){
+                                console.log('Exam does not find')
+                                reject(result)
+                            })
+                        })
+                        if(responseExam){
+                            resolve(true)
+                        }
+                }).catch(function(result){
+                    console.log('In catch' + result)
+                    reject(result)
                 });
+                
             });
+        }else{
+            return new Promise( (resolve, reject) => {
+                reject('fail')
+            })
         }
     }
-            
+    //check if exam exist and deadline
+    static checkExam(id){
+        var response;
+        var res={}; res.id = id;
+        return  new Promise( async(resolve, reject) => {
+            response = await Exam.findExams(res);
+            if(response.length == 0){
+                reject()
+            }else{
+                //seek only for id --> 1 result
+                if(Date.now()>response[0].deadline){
+                    console.log(Date.now())
+                    resolve(true)
+                }
+                reject('deadline')
+            }
+        });
+    }
+    //check if student exist
     static checkStudent(id){
         var response;
         var res={}; res.id = id;
         return  new Promise( async(resolve, reject) => {
             response = await Student.find(res);
             if(response.length == 0){
-                resolve(false)
+                reject()
             }else{
-                resolve(true)
+                resolve()
             }
         });
     }
 
     static async findDeliveries(criterias) {
-
         let matchingDeliveries = deliveriesTable.filter(t => {
             return (criterias.idStudent == undefined ? true : t.idStudent === criterias.idStudent)
                 && (criterias.idExam == undefined ? true : t.idExam === criterias.idExam)
