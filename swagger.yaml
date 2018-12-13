@@ -15,6 +15,7 @@ tags:
 - name: "Workgroup's Post"
 - name: "Book"
 - name: "Course"
+- name: "Delivery"
 
   
 schemes:
@@ -47,8 +48,10 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Professors"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Professors"
 
 
     post:
@@ -135,8 +138,10 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Students"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Students"
 
 
     post:
@@ -218,8 +223,10 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Tests"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Tests"
           
 
     post:
@@ -326,7 +333,9 @@ paths:
         200:
           description: 'Successful Response'
           schema: 
-            $ref: "#/definitions/Exams"
+            type: "array"
+            items:
+              $ref: "#/definitions/Exams"
     post:
       summary: Create Exam
       produces: 
@@ -423,8 +432,10 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Assignments"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Assignments"
 
 
     post:
@@ -506,8 +517,10 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Workgroups"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Workgroups"
 
     post:
       summary: Create Workgroup
@@ -592,8 +605,10 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Workgroups|idWorkgoup|posts"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Workgroups|idWorkgoup|posts"
 
 
     post:
@@ -675,15 +690,14 @@ paths:
       - in: "query"
         name: "idCourse"
         type: "integer"
-      - in: "query"
-        name: "nameCourse"
-        type: "string"
 
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Books"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Books"
 
 
     post:
@@ -771,8 +785,10 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Courses"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Courses"
 
 
     post:
@@ -836,7 +852,48 @@ paths:
         404: 
           description: 'not found'
 
-
+  /delivery:
+    x-summary: /deliveries
+    get:
+      tags: 
+        - "Delivery"
+      summary: List of Delivery
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idDelivery"
+        type: "integer"
+      - in: "query"
+        name: "idStudent"
+        type: "integer"
+      - in: "query"
+        name: "idExam"
+        type: "integer"
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Deliveries"
+    post:
+      summary: Create Delivery
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Delivery object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Deliveries" 
+         
+      responses:
+        201:
+          description: 'successful'
+        405:
+          description: "Invalid input"
 
 definitions:
 
@@ -852,6 +909,14 @@ definitions:
         format: "email"
       password:
         type: "string"
+    required:
+      - idStudent
+      - nameStudent
+    example:
+      idStudent: 753847
+      nameStudent: "Alessandro"
+      emailStudent: "alessandro.wioqe@sue.com"
+      password: "Pkejfwie84"
 
   Professors:
     type: "object"
@@ -865,47 +930,84 @@ definitions:
         format: "email"
       password:
         type: "string"
+    required: 
+      - idProfessor
+      - nameProfessor 
+    example: 
+      idProfessor: 12273
+      nameProfessor: "Matteo"
+      emailProfessor: "matteo.ghgh@ueh.com"
+      password: "SedqjER-2jhd"
 
   Tests: 
-   type: "object"
-   properties:
-    idTest:
-      type: "integer"
-    nameTest: 
-      type: "string"
-    question:
-      type: "array"
-      items: 
-        type: "object"
-        properties:
-          idQuestion:
-            type: "integer"
-          text: 
-            type: "string"
+    type: "object"
+    properties:
+      idTest:
+        type: "integer"
+      nameTest: 
+        type: "string"
+      questions:
+        type: "array"
+        items: 
+          type: "object"
+          properties:
+            idQuestion:
+              type: "integer"
+    required: 
+      - idTest
+      - nameTest
+    example:
+      idTest: 28939123
+      nameTest: analisi
+      questions: [918239,10293810,123810,12831]
+
 
 
   Exams: 
-   type: "object"
-   properties:
-    idExam:
-      type: "integer"
-    nameExam: 
-      type: "string"
-    idProfessor:
-      type: "integer"
-    idCourse: 
-      type: "integer"
-    deadline:
-      type: "string"
-      format: "date-time"
-    examType:
-      type: "string"
-      description: "Type of Exam"
-      enum:
-        - "oral"
-        - "write"
-        - "practical"
-  
+    type: "object"
+    properties:
+      idExam:
+        type: "integer"
+      nameExam: 
+        type: "string"
+      idProfessor:
+        type: "integer"
+      idCourse: 
+        type: "integer"
+      idTest:
+        type: "integer"
+      deadline:
+        type: "string"
+        format: "date-time"
+      examType:
+        type: "string"
+        description: "Type of Exam"
+        enum:
+          - "oral"
+          - "write"
+          - "practical"
+      description:
+        type: "string"
+    required:
+      - idExam
+      - nameExam
+      - idProfessor
+      - idCourse
+      - idTest
+      - deadline 
+      - examType
+      
+    example:
+      idExam: 9283091
+      nameExam: "analisi 1"
+      idProfessor: 1672488
+      idCourse: 8823749
+      idTest: 58379842
+      deadline: "2018-12-06 12:34:21"
+      examType: 'oral'
+      description: "gfuytjftesythjhtfyghhkuiygfyrsawrsfdhfj"
+      
+
   Assignments:
     type: "object"
     properties:
@@ -925,6 +1027,25 @@ definitions:
       obligatory:
         type: "boolean"
         default: false
+      descriprion:
+        type: "string"
+    required:
+      - idAssignment
+      - nameAssignment
+      - idTest
+      - idProfessor
+      - idCourse
+      - deadline
+      - obligatory
+    example: 
+      idAssignment: 9283091
+      nameAssignment: "assignment 1"
+      idProfessor: 1672488
+      idCourse: 8823749
+      idTest: 58379842
+      deadline: "2018-12-06 12:34:21"
+      obligatory: true
+      description: "wqhjfghjqwhfiuqwfio"
 
   Workgroups:
     type: "object"
@@ -940,6 +1061,14 @@ definitions:
           properties:
             idStudent:
               type: "integer"
+    required:
+      - idWorkgroup
+      - nameWorkgroup
+      - Members
+    example:
+      idWorkgroup: 2988497
+      nameWorkgroup: "iProjectIS2"
+      Members: array
             
   Workgroups|idWorkgoup|posts:
     type: "object"
@@ -957,6 +1086,13 @@ definitions:
               type: "integer"
             message: 
               type: "string"
+    required:
+      - idWorkgroup
+      - idPost
+    example: 
+      idWorkgroup: 18381783
+      idPost: 27378
+      Posts: array
   
   Books:
     type: "object"
@@ -972,7 +1108,22 @@ definitions:
       sold:
         type: "boolean"
         default: false
-        
+      deadline: 
+        type: "string"
+        format: "date-time"
+    required: 
+      - idBook
+      - idStudent
+      - deadline 
+      - sold
+    example:
+      idBook: 34290239
+      title: "cavanda & Co."
+      idStudent: 567320
+      idCourse: 6948248
+      sold: "false"
+      deadline: "2018-12-13 14:07:56"
+ 
   Courses:
     type: "object"
     properties:
@@ -982,4 +1133,42 @@ definitions:
         type: "integer"
       CFU: 
         type: "integer"
+    required: 
+      - idCourse
+      - idProfessor
+      - CFU
+    example: 
+      idCourse: 87498
+      idProfessor: 3798218
+      CFU: 12
+  
+  Deliveries:
+    type: "object"
+    properties:
+      idDelivery:
+        type: "integer"
+      idStudent:
+        type: "integer"
+      idExam:
+        type: "integer"
+      answers:
+        type: "array"
+        items: 
+          type: "string"
+      timeDelivery:
+        type: "string"
+        format: "date-time"
         
+    required:
+      - idDelivery
+      - idStudent
+      - idExam
+      - answers
+      - timeDelivery
+    
+    example:
+      idDelivery: 8749387
+      idStudent: 3346896
+      idExam: 78997667
+      answer: array
+      deadline: "2018-12-13 15:02:30"
