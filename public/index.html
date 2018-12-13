@@ -1,76 +1,132 @@
 <html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!--JQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">        
+        
+        <!--Script used for navbar-->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.sidenav');
+                var instances = M.Sidenav.init(elems, {});
+            });
+        </script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <style>
-            .myButton {
-                background-color:#a1c6d8a8;
-                border: 1px solid #83b7d1a8;
-                display:inline-block;
-                color: black;
-                cursor:pointer;
-                font-size:18px;
-                padding:13px 38px;
-            }
 
-            .myButton:hover {
-                background-color: #c4d9e4ec;
-                color: black;
-            }
+        .test{
+            display: inline-block;
+            position: fixed;
+            left: 30%;
+            width: 40%;
+            margin-top: 5%;
+            background-color: #ffffff52;
+            /*background-color: transparent;*/
             
-            .myButton:active {
-                background-color: #a7c5d4ec;
-            }
+        }
 
-            .myButton:focus {
-                background-color: #a7c5d4ec;
-            }
+        .text_color{
+            color: black;
+        }
 
-            .name{
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                padding: 1.3em;
-                text-align: right;
-            }
+        .test:hover{
+            background-color: #ffffffb0;
+            
 
-            .titolo{
-                margin: 0;
-                padding: 1%;
-                background-color: #c1c1c1;
-            }
+            /*background-color: transparent;*/
+            
+        }
 
-            .corpo{
-                padding: 1%;
-                width: 100%;
-            }
+        .title{
+            color: black;
+        }
 
-            body{
-                background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/06/HD-Minimalist-Pictures.jpg");
-                height: 100%;
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                position: relative;
-            }
+        body{
+            /*
+            background-image: url(https://ufficiostampabasilicata.it/wp-content/uploads/2018/04/future-of-work.jpg);
+            */
+            
+            background-image: url(https://denmark.dk/-/media/denmarkdk/link-cards/1studiegruppe-gettyimages-637874086.ashx?h=1080&la=en&w=1920&hash=DD514C2927E2F2D2F897ADCC16188E425159683F); 
+            
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .link{
+            color: whitesmoke;
+        }
+        
+        .size{
+            width: 10%;
+        }
+
+        .name{
+            line-height: 0.3em;
+            color: #b3afaf;
+            position: absolute;
+            bottom: 5%;
+            left: 0;
+            padding: 1.3em;
+            text-align: left;
+        }
+
+        .form{
+            width: 100%;
+        }
         </style>
+
+        <nav>
+            <div class="nav-wrapper brown darken-4">
+                <a href="" class="brand-logo">iProjectIS2</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/v1/students">Student</a></li>
+                    <li><a href="/v1/professors">Professor</a></li>
+                    <li><a href="/v1/exams">Exam</a></li>
+                    <li><a href="/v1/assignments">Assignment</a></li>
+                    <li><a href="/v1/workgroups">Workgroup</a></li>
+                    <!-- <li><a href="/v1/tests">Test</a></li> -->
+                </ul>
+            </div>
+        </nav>
+    
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="/v1/students">Student</a></li>
+            <li><a href="/v1/professors">Professor</a></li>
+            <li><a href="/v1/exams">Exam</a></li>
+            <li><a href="/v1/assignments">Assignment</a></li>
+            <li><a href="/v1/workgroups">Workgroup</a></li>
+            <!-- <li><a href="/v1/tests">Test</a></li> -->
+        </ul>
+
+        
     </head>
     <body>
-        <div class="jumbotron text-center titolo">
-                <h1>iProjectIS2</h1>
-                <p>Project started on 30 October 2018</p> 
-        </div>
-        <div class="container corpo sfondo">
-            <div class="btn-group btn-group-justified">
-                <a href="/v1/students" class="btn btn-primary myButton">Student</a>
-                <a href="/v1/professors" class="btn btn-primary myButton">Professor</a>
-                <a href="/v1/exams" class="btn btn-primary myButton">Exam</a>
-                <a href="/v1/assignments" class="btn btn-primary myButton">Assignment</a>
-                <a href="/v1/tests" class="btn btn-primary myButton">Test</a>
-                <a href="/v1/workgroups" class="btn btn-primary myButton">Workgroup</a>     
+        <div class="card large test z-depth-3">
+            <h1 class="center title">iProjectIS2</h1>
+            <div class="row form">
+                <div class="input-field col s12">
+                    <input placeholder="Placeholder" id="user_name" type="text" class="validate">
+                    <label for="user_name" class="text_color">User Name</label>
+                </div>
+            </div>
+            <div class="row form">
+                <div class="input-field col s12">
+                    <input placeholder="Placeholder" id="password" type="password" class="validate">
+                    <label for="password" class="text_color">Password</label>
+                </div>
             </div>
         </div>
+
         <div class="name">
             <p>Matteo Luca</p>
             <p>Lorenzo Cavada</p>
@@ -78,6 +134,8 @@
             <p>Alessandro Grassi</p>
             <p>Alessandro Fontanella</p>
         </div>
+
+        <script type="text/javascript" src="js/materialize.min.js"></script>
     </body>
 
 

@@ -1,9 +1,16 @@
 const express = require('express')
 const bodyParser = require('body-parser');
+var cors = require('cors');
 const app = express()
 const PORT = process.env.PORT || 3000
 
-
+//set cors
+app.use(cors());
+app.use(function (req, res, next) { //consente cross domain
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 //set bodyParser
 app.use(bodyParser.json());

@@ -1,0 +1,243 @@
+<html>
+    <head>
+        <!--JQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script> 
+        <script>
+
+        </script>
+
+        <style>
+            .color{
+                background-color: brown;
+            }
+
+            .registerCard{
+                text-align: center;
+                position: fixed;
+                left: 25%;
+                width: 50%;
+                margin-top: 5%;
+                background-color: #ffffff52;
+            }
+
+            .registerCard:hover{
+                background-color: #ffffff80;
+            }
+            .backgroundI{
+                /*
+                background-image: url(https://ufficiostampabasilicata.it/wp-content/uploads/2018/04/future-of-work.jpg);
+                */
+                
+                background-image: url(https://denmark.dk/-/media/denmarkdk/link-cards/1studiegruppe-gettyimages-637874086.ashx?h=1080&la=en&w=1920&hash=DD514C2927E2F2D2F897ADCC16188E425159683F); 
+                
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                position: relative;
+            }
+
+            .formatMenu{
+                text-decoration: none;
+                color: rgb(43, 36, 36);
+            }
+
+            .listProfessor{
+                text-align: center;
+                position: fixed;
+                left: 25%;
+                width: 50%;
+                margin-top: 5%;
+            }
+
+            .tableProfessor{
+                width: 100%;
+            }
+
+            .deleteButton{
+                border: none;
+                background-color: transparent;
+            }
+
+            .deleteButton:hover {
+                color: #dc2a2a;
+            }
+
+            .deleteButton:focus {
+                outline: none;
+            }
+
+        </style>
+    </head>
+    <body onload=" getList()">
+        <!-- Simple header with fixed tabs. -->
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+            <header class="mdl-layout__header color">
+                <div class="mdl-layout__header-row color">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">iProjectIS2</span>
+                </div>
+                <!-- Tabs -->
+                <div class="mdl-layout__tab-bar mdl-js-ripple-effect color">
+                    <a href="#register" class="mdl-layout__tab is-active">Register</a>
+                    <a href="#list" class="mdl-layout__tab">List</a>
+                    <a href="#update" class="mdl-layout__tab">Update</a>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <ul class="demo-list-item mdl-list">
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                        <a href="www.google.com" class="formatMenu">Exam</a>
+                        </span>
+                    </li>
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                        <a href="www.google.com" class="formatMenu">Test</a>
+                        </span>
+                    </li>
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                        <a href="www.google.com" class="formatMenu">Assignment</a>
+                        </span>
+                    </li>
+                </ul>
+                      
+            </div>
+            <main class="mdl-layout__content content backgroundI">
+                <section class="mdl-layout__tab-panel is-active" id="register">
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp registerCard">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <h2 class="mdl-card__title-text">Welcome new Professor</h2>
+                        </div>
+                        <form method="post" action="http://localhost/v1/professors" id="registerForm" enctype="application/x-www-form-urlencoded">
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="name">
+                                <label class="mdl-textfield__label" for="name">Name</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="email" name="email">
+                                <label class="mdl-textfield__label" for="email">Email</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="password" name="password">
+                                <label class="mdl-textfield__label" for="password">Password</label>
+                            </div>
+
+                        </form>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <button form="registerForm" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
+                        </div>
+
+                        <script>
+                            $("#registerForm").submit(function( event ) {                                
+                                event.preventDefault();                                
+                                // Get some values from elements on the page:
+                                var $form = $(this),
+                                name = $form.find("input[name='name']").val();
+                                email = $form.find("input[name='email']").val();
+                                password = $form.find("input[name='password']").val();
+                                url = $form.attr("action");                             
+                                $.post(url, {name: name,
+                                            email: email,
+                                            password: password}).success(function(){
+                                                alert("Inserted completed");
+                                            });
+                            });
+                        </script>
+                    </div>
+                </section>
+
+                <section class="mdl-layout__tab-panel" id="list">
+                    <div class="page-content">
+                        <div class="listProfessor" id="listProfessors">
+                            <script language="javascript" type="text/javascript">     
+                                    function getList(){                                   
+                                        $.get("http://localhost/v1/professors").success(function(data){
+                                            var professors = data;                                           
+
+                                            var myTable= "<table class=\"mdl-data-table mdl-js-data-table mdl-shadow--2dp tableProfessor\" >";
+                                            myTable+= "<th class=\"mdl-data-table__cell--non-numeric\">ID</th>";
+                                            myTable+= "<th>Name</th>";
+                                            myTable+= "<th>Email</th>";
+                                            myTable+= "<th>Delete</th>";
+                                            for (var i=0; i<professors.length; i++) {
+                                                myTable+="<tr><td  class=\"mdl-data-table__cell--non-numeric\">" + professors[i].id + "</td>";
+                                                myTable+="<td>" + professors[i].name + "</td>";
+                                                myTable+="<td>" + professors[i].email + "</td>";
+                                                myTable+="<td><button onClick=\"deleteP('"+professors[i].id+"')\" class=\"material-icons deleteButton\">delete</button></td></tr>";
+                                            }  
+                                            myTable+="</table>";
+                                            
+                                            document.getElementById('listProfessors').innerHTML = myTable;
+                                        });
+                                    }                                
+
+                                    function deleteP(profId) {
+                                        var url = "http://localhost/v1/professors/" + profId;
+                                        $.ajax({
+                                            url: url,
+                                            type: "DELETE",
+                                            success: function(){alert("Delete completed");}
+                                        });
+                                    };
+                            </script> 
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mdl-layout__tab-panel" id="update">
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp registerCard">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <h2 class="mdl-card__title-text">Update a Professor</h2>
+                        </div>
+                        <form id="updateForm"  action="http://localhost/v1/professors">
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="id">
+                                <label class="mdl-textfield__label" for="id">Id</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="name">
+                                <label class="mdl-textfield__label" for="name">Name</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="email" name="email">
+                                <label class="mdl-textfield__label" for="email">Email</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="password" name="password">
+                                <label class="mdl-textfield__label" for="password">Password</label>
+                            </div>
+                        </form>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <button form="updateForm" class="mdl-button mdl-js-button mdl-js-ripple-effect">Update</button>
+                        </div>  
+    
+                        <script>
+                            $("#updateForm").submit(function( event ) {                                
+                                event.preventDefault();                                
+                                // Get some values from elements on the page:
+                                var $form = $(this),
+                                url2 = $form.attr("action") + "/" + $form.find("input[name='id']").val();      
+                                var myData = new FormData();
+                                myData.append("name", $form.find("input[name='name']").val());
+                                myData.append("email", $form.find("input[name='email']").val());
+                                myData.append("password", $form.find("input[name='password']").val());
+                                console.log(myData);
+                                $.ajax({
+                                    url: url2,
+                                    type: "PUT",
+                                    data: "name="+$form.find("input[name='name']").val()+"&email="+$form.find("input[name='email']").val()+"&password="+$form.find("input[name='password']").val(),
+                                    success: function(){alert("Update completed");}
+                                });                   
+                            });
+                        </script>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </body>
+</html>      

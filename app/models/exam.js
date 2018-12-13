@@ -21,7 +21,7 @@ class Exam{
         if(examIndex == -1)
             return 404
         
-        examsTable.splice(criterias, 1)
+        examsTable.splice(examIndex, 1)
         return 204
          
     }
