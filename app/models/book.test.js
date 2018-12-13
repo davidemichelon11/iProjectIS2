@@ -1,12 +1,6 @@
 const request = require('supertest') //allow testing w/ good syntax
 const app     = require('../../app')
 
-///GET work
-test('GET / should return 200', async () => {
-    const response = await request(app).get('/v1/books');
-    expect(response.statusCode).toBe(200);
-});
-
 describe('CRUD on /v1/books', () => {  
   test('POST v1/books ', async () => {
     const response = await request(app).post('/v1/books/')
@@ -20,6 +14,21 @@ describe('CRUD on /v1/books', () => {
                                         });    
     expect(response.status).toBe(201);
   });
+
+test('GET / should return 200', async () => {
+    const response = await request(app).get('/v1/books');
+    expect(response.statusCode).toBe(200);
+    var jsonRespone = response.body[0];
+    delete jsonRespone.id;
+    expect(jsonRespone).toEqual({
+                              title: 'Analisi 1',
+                              idSolder: 'frifb08b340',
+                              firstPrice: '1',
+                              lastPrice: '50',
+                              deadline: '12122017',
+                              sold: 'false'
+    });  
+});
 
   test('POST DOESNT WORK v1/books', async () => {
     const response = await request(app).post('/v1/books/')
@@ -54,6 +63,8 @@ describe('CRUD on /v1/books', () => {
   
     
     expect(response.status).toBe(200);
+    //There is only one element so the response body must be a empty JSON
+    expect(response.body).toEqual({});
   });
 
   test('DELETE DOESNT WORK v1/books ', async () => {
@@ -86,11 +97,13 @@ describe('CRUD on /v1/books', () => {
     const response = await request(app).put(url)
                                         .send({
                                             title: 'Analisi 1',
-                                            idBuyer: 'jdsnefnon'
+                                            idBuyer: 'jdsnefnon',
+                                            firstPrice: '1'
                                         });  
   
     
-    expect(response.status).toBe(200);
+     expect(response.status).toBe(200);
+     expect(response.body).toEqual({});
   });
 
   test('UPDATE DOESNT WORK v1/books ', async () => {
