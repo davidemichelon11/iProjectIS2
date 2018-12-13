@@ -14,12 +14,13 @@ deliveriesRoute.route('/')
 
 //delivery your exams
 .post(function(req, res){
-    var isOk = Delivery.addDelivery(req.body);
-    if(isOk){
-        res.status(200).send({result: 'inserted'})
-    }else{
-        res.status(405).send({error: 405, result: 'not all params inserted'})
-    }
+    Delivery.addDelivery(req.body).then(function(response){
+        if(response){
+            res.status(200).send({result: 'inserted'})
+        }else{
+            res.status(405).send({error: 405, result: 'not all params inserted'})
+        }
+    })    
 })
 
 module.exports = deliveriesRoute;

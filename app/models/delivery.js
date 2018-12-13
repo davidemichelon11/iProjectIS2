@@ -1,4 +1,8 @@
 var uniqid = require('uniqid');
+var Student = require('../models/student');
+var Exam = require('../models/exam');
+const fetch = require('node-fetch');
+
 
 var deliveriesTable = global.deliveriesTable;
 if(deliveriesTable == undefined)
@@ -16,11 +20,32 @@ class Delivery{
             criterias.id = uniqid();
         }
         if(Object.keys(criterias).length == 4) {
-            deliveriesTable.push(criterias);
-            return true
-        } 
-        return false
+            return  new Promise( (resolve, reject) => {
+                Delivery.checkStudent(criterias.idStudent).then(function(res) {
+                    if(res){
+                        deliveriesTable.push(criterias);
+                        resolve(true)
+                    }else{
+                        resolve(false)
+                    }
+                });
+            });
+        }
     }
+            
+    static checkStudent(id){
+        var response;
+        var res={}; res.id = id;
+        return  new Promise( async(resolve, reject) => {
+            response = await Student.find(res);
+            if(response.length == 0){
+                resolve(false)
+            }else{
+                resolve(true)
+            }
+        });
+    }
+
     static async findDeliveries(criterias) {
 
         let matchingDeliveries = deliveriesTable.filter(t => {
