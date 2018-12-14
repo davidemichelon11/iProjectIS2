@@ -55,4 +55,38 @@ describe('/POST delivery', () => {
         expect(answerResponse.status).toBe(200)
         expect(answerResponse.body.result).toEqual('inserted')
     });
+    test('POST without the deadline on v1/deliveries <should return 200> ', async () => {                                
+        //Insert student and exam
+        await request(app).post('/v1/students')
+                                        .send({
+                                            id: 1,
+                                            name: 'Davide',
+                                            email: 'davide.michelon-1@studenti.unitn.it',
+                                            password: 'cisco2018'
+                                        });
+                                        
+        await request(app).post('/v1/exams')
+                                        .send({
+                                            id:2,
+                                            name: 'Analisi 1',
+                                            profName: 'Barozzi',
+                                            courseName: 'Ingegneria dell informazione ',
+                                            deadline: 2544804341854,
+                                            examType: 'Oral'
+                                        });
+        //delete student and exam                                    
+        afterAll(()=>{
+            request(app).delete('/v1/exams/2');
+            request(app).delete('/v1/students/1');
+        })
+
+        const answerResponse1 = await request(app).post('/v1/deliveries')
+                                        .send({
+                                            idStudent: 1,
+                                            idExam: 2,
+                                            answer: '[a,b]',
+                                        });    
+        expect(answerResponse1.status).toBe(403)
+        expect(answerResponse1.body.result).toEqual('too late')
+    });
 });

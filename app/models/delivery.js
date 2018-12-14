@@ -21,26 +21,23 @@ class Delivery{
         if(Object.keys(criterias).length == 4) {
             return  new Promise( (resolve, reject) => {
                 var responseExam;
-                Delivery.checkStudent(criterias.idStudent).then( async function() {
+                Delivery.checkStudent(criterias.idStudent).then(async function() {
                         //check if exam exist and deadline is after now
                         responseExam = await new Promise((resolve, reject)=>{
                             Delivery.checkExam(criterias.idExam).then(function(res){
                                 if(res){
                                     deliveriesTable.push(criterias);
-                                    console.log('resolve true')
                                     resolve(true)
                                 }
                             }).catch(function(result){
-                                console.log('Exam does not find')
                                 reject(result)
                             })
                         })
                         if(responseExam){
                             resolve(true)
                         }
-                }).catch(function(result){
-                    console.log('In catch' + result)
-                    reject(result)
+                }).catch(async function(res){
+                    reject(res)
                 });
                 
             });
@@ -61,7 +58,6 @@ class Delivery{
             }else{
                 //seek only for id --> 1 result
                 if(Date.now()>response[0].deadline){
-                    console.log(Date.now())
                     resolve(true)
                 }
                 reject('deadline')

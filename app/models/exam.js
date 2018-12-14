@@ -20,6 +20,7 @@ class Exam{
     static async findExams(criterias) {
         let matchingExams = examsTable.filter(t => {
             return (criterias.name == undefined ? true : t.name === criterias.name)
+                && (criterias.id == undefined ? true : t.id === criterias.id)
                 && (criterias.deadline == undefined ? true : t.deadline === criterias.deadline)
                 && (criterias.examType == undefined ? true : t.examType === criterias.examType)
         })
