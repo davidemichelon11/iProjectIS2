@@ -16,18 +16,31 @@ tags:
 - name: "Book"
 - name: "Course"
 - name: "Delivery"
-
-  
 schemes:
 - http
 consumes:
 - application/json
 produces:
 - application/json
-paths:
 
+#Global security for all resources's method
+security: 
+  - APIKeyHeader: []
+  - APIKeyQueryParam: []
+parameters:
+  tokenHeaderParam:
+    in: header
+    name: x-access-token
+    type: string
+    required: true
+    description: token
+    x-example: G6943LMReKj_kqdAVrAiPbpRloAfE1fqp0eVAJ-IChQcV-kv3gW-gBAzWztBEdFY
+    
+paths:
   /professors:
     x-summary: /professors
+    parameters: 
+      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Professor"
@@ -52,6 +65,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Professors"
+        401:
+          $ref: "#/responses/UnauthorizedError"
 
 
     post:
@@ -92,7 +107,14 @@ paths:
           description: "Test not found"
   
   /professors/{idProfessor}:
-    
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
+      - name: idProfessor
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "912831293"
     delete:
       tags: 
         - "Professor"
@@ -100,24 +122,21 @@ paths:
       operationId: "DeleteProfessorById"
       produces: 
       - "application/json"
-      parameters:
-      - name: "idProfessor"
-        in: "path"
-        description: "Professor id to delete"
-        required: true
-        type: "integer"
         
       responses:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+
+          $ref: "#/responses/UnauthorizedError"
         404: 
           description: 'not found'
 
 
   /students:
     x-summary: /students
+    parameters: 
+      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Student"
@@ -142,6 +161,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Students"
+        401: 
+          $ref: "#/responses/UnauthorizedError"
 
 
     post:
@@ -181,6 +202,14 @@ paths:
           description: "not found"
     
   /students/{idStudent}:
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
+      - name: idStudent
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "965841289"
     delete:
       tags: 
         - "Student"
@@ -188,24 +217,20 @@ paths:
       operationId: "DeleteStudentById"
       produces: 
       - "application/json"
-      parameters:
-      - name: "idStudent"
-        in: "path"
-        description: "Student id to delete"
-        required: true
-        type: "integer"
         
       responses:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          $ref: "#/responses/UnauthorizedError"
         404: 
           description: 'not found'
 
 
   /tests:
     x-summary: /tests
+    parameters: 
+      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Test"
@@ -227,6 +252,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Tests"
+        401:
+          $ref: "#/responses/UnauthorizedError"
           
 
     post:
@@ -270,6 +297,14 @@ paths:
             application/json: 
             
   /tests/{idTest}:
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
+      - name: idTest
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "4742934726"
     delete:
       tags: 
         - "Test"
@@ -277,23 +312,19 @@ paths:
       operationId: "DeleteTestById"
       produces: 
       - "application/json"
-      parameters:
-      - name: "idTest"
-        in: "path"
-        description: "Test id to delete"
-        required: true
-        type: "integer"
         
       responses:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          $ref: "#/responses/UnauthorizedError"
         404: 
           description: 'not found'
 
   /exams:
     x-summary: /exams
+    parameters: 
+      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Exam"
@@ -336,6 +367,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Exams"
+        401:
+          $ref: "#/responses/UnauthorizedError"
     post:
       summary: Create Exam
       produces: 
@@ -372,6 +405,14 @@ paths:
           description: "Exam not found"
           
   /exams/{idExam}:
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
+      - name: idExam
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "983248798112"
     delete:
       tags: 
         - "Exam"
@@ -379,24 +420,20 @@ paths:
       operationId: "DeleteExamById"
       produces: 
       - "application/json"
-      parameters:
-      - name: "idExam"
-        in: "path"
-        description: "Exam id to delete"
-        required: true
-        type: "integer"
         
       responses:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          $ref: "#/responses/UnauthorizedError"
         404: 
           description: 'not found'
 
 
   /assignments:
     x-summary: /assignments
+    parameters: 
+      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Assignment"
@@ -436,7 +473,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Assignments"
-
+        401: 
+          $ref: "#/responses/UnauthorizedError"
 
     post:
       summary: Create Assignment
@@ -463,7 +501,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Update Test"
+        description: "Update Assignment"
         required: true
         schema:
           $ref: "#/definitions/Assignments"
@@ -477,6 +515,14 @@ paths:
           description: "Assignment not found"
           
   /assignments/{idAssignment}:
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
+      - name: idAssignment
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "142782346"
     delete:
       tags: 
         - "Assignment"
@@ -484,23 +530,19 @@ paths:
       operationId: "DeleteAssignmentById"
       produces: 
       - "application/json"
-      parameters:
-      - name: "idAssignment"
-        in: "path"
-        description: "Assignment id to delete"
-        required: true
-        type: "integer"
-        
+
       responses:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          $ref: "#/responses/UnauthorizedError"
         404: 
           description: 'not found'
 
   /workgroups:
     x-summary: /workgroups
+    parameters: 
+      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Workgroup"
@@ -521,6 +563,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Workgroups"
+        401:
+          $ref: "#/responses/UnauthorizedError"
 
     post:
       summary: Create Workgroup
@@ -561,6 +605,14 @@ paths:
           description: " not found"
           
   /workgroups/{idWorkgroup}:
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
+      - name: idWorkgroup
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "57886973"
     delete:
       tags: 
         - "Workgroup"
@@ -568,23 +620,19 @@ paths:
       operationId: "DeleteWorkgroupById"
       produces: 
       - "application/json"
-      parameters:
-      - name: "idWorkgroup"
-        in: "path"
-        description: "Workgroup id to delete"
-        required: true
-        type: "integer"
         
       responses:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          $ref: "#/responses/UnauthorizedError"
         404: 
           description: 'not found'
 
   /workgroups/idWorkgroup/posts:
     x-summary: /workgroups/{idWorkgroup}/posts
+    parameters: 
+      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Workgroup's Post"
@@ -609,6 +657,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Workgroups|idWorkgoup|posts"
+        401:
+           $ref: "#/responses/UnauthorizedError"
 
 
     post:
@@ -650,6 +700,14 @@ paths:
           description: "not found" 
           
   /workgroups/posts/{idPost}:
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
+      - name: idPost
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "3983094982"
     delete:
       tags: 
         - "Workgroup's Post"
@@ -657,23 +715,19 @@ paths:
       operationId: "DeleteWorkgroup'sPostById"
       produces: 
       - "application/json"
-      parameters:
-      - name: "idPost"
-        in: "path"
-        description: "Post id to delete"
-        required: true
-        type: "integer"
         
       responses:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          $ref: "#/responses/UnauthorizedError"
         404: 
           description: 'not found'
 
   /books:
     x-summary: /books
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Book"
@@ -698,6 +752,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Books"
+        401:
+           $ref: "#/responses/UnauthorizedError"
 
 
     post:
@@ -740,6 +796,14 @@ paths:
           description: "not found"
           
   /books/{idBook}:
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
+      - name: idBook
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "09568722384"
     delete:
       tags: 
         - "Book"
@@ -747,24 +811,22 @@ paths:
       operationId: "DeleteBookById"
       produces: 
       - "application/json"
-      parameters:
-      - name: "idBook"
-        in: "path"
-        description: "Book id to delete"
-        required: true
-        type: "integer"
         
       responses:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          $ref: "#/responses/UnauthorizedError"
+
+          
         404: 
           description: 'not found'
 
             
   /courses:
     x-summary: /courses
+    parameters:
+        - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Course"
@@ -789,7 +851,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Courses"
-
+        401:
+           $ref: "#/responses/UnauthorizedError"
 
     post:
       summary: Create Course
@@ -816,7 +879,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Update Test"
+        description: "Update Course"
         required: true
         schema:
           $ref: "#/definitions/Courses"
@@ -830,6 +893,14 @@ paths:
           description: "Course not found"
 
   /courses/{idCourse}:
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
+      - name: idCourse
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "092781356221"
     delete:
       tags: 
         - "Course"
@@ -837,23 +908,19 @@ paths:
       operationId: "DeleteCourseById"
       produces: 
       - "application/json"
-      parameters:
-      - name: "idCourse"
-        in: "path"
-        description: "Course id to delete"
-        required: true
-        type: "integer"
         
       responses:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          $ref: "#/responses/UnauthorizedError"
         404: 
           description: 'not found'
 
   /delivery:
     x-summary: /deliveries
+    parameters:
+        - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Delivery"
@@ -877,6 +944,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Deliveries"
+        401:
+           $ref: "#/responses/UnauthorizedError"
     post:
       summary: Create Delivery
       produces: 
@@ -1172,3 +1241,21 @@ definitions:
       idExam: 78997667
       answer: array
       deadline: "2018-12-13 15:02:30"
+      
+responses:
+  UnauthorizedError:
+    description: API key is missing or invalid
+    headers: 
+      WWW_Authenticate:
+        type: string
+        
+securityDefinitions:
+   APIKeyHeader:
+     type: apiKey
+     in: header
+     name: x-access-token
+   APIKeyQueryParam:
+     type: apiKey
+     in: query
+     name: token
+  
