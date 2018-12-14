@@ -25,7 +25,7 @@ deliveriesRoute.route('/')
     
     .catch(function(result){
         if(result === undefined)
-            res.status(404).json({result:'Exam or student does not find'})
+            res.status(404).send({result:'Exam or student does not find'})
         else if (result === 'fail')
             res.status(404).json({result:'not all params'})
         else if (result === 'deadline')
