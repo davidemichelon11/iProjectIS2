@@ -10,22 +10,11 @@ class Exam{
         return examsTable;
     }
     //add a new exam
-    static async addExam(criterias){ 
-        if(criterias.id === undefined){
-            criterias.id = uniqid();
-        } 
+    static async addExam(criterias){  
+        criterias.id = uniqid();
         examsTable.push(criterias);
     }
-    //find exams
-    static async findExams(criterias) {
-        let matchingExams = examsTable.filter(t => {
-            return (criterias.name == undefined ? true : t.name === criterias.name)
-                && (criterias.id == undefined ? true : t.id === criterias.id)
-                && (criterias.deadline == undefined ? true : t.deadline === criterias.deadline)
-                && (criterias.examType == undefined ? true : t.examType === criterias.examType)
-        })
-        return matchingExams
-    }
+
     //delete an exam
     static async delete(criterias){ 
         let examIndex = examsTable.findIndex(e => e.id === criterias)
