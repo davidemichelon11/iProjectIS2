@@ -30,4 +30,7 @@ routesV1.use('/workgroups', workgroupsRoute);
 var deliveriesRoute = require('./deliveriesRoute');
 routesV1.use('/deliveries', deliveriesRoute);
 
+var booksRoute = require('./booksRoute');
+routesV1.use('/books', booksRoute);
+
 module.exports = routesV1;
