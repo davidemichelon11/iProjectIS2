@@ -15,7 +15,8 @@ tags:
 - name: "Workgroup's Post"
 - name: "Book"
 - name: "Course"
-- name: "Delivery"
+
+  
 schemes:
 - http
 consumes:
@@ -24,6 +25,7 @@ produces:
 - application/json
 
 paths:
+
   /professors:
     x-summary: /professors
     get:
@@ -103,6 +105,12 @@ paths:
       operationId: "DeleteProfessorById"
       produces: 
       - "application/json"
+      parameters:
+      - name: "idProfessor"
+        in: "path"
+        description: "Professor id to delete"
+        required: true
+        type: "integer"
         
       responses:
         204: 
@@ -194,6 +202,12 @@ paths:
       operationId: "DeleteStudentById"
       produces: 
       - "application/json"
+      parameters:
+      - name: "idStudent"
+        in: "path"
+        description: "Student id to delete"
+        required: true
+        type: "integer"
         
       responses:
         204: 
@@ -286,6 +300,12 @@ paths:
       operationId: "DeleteTestById"
       produces: 
       - "application/json"
+      parameters:
+      - name: "idTest"
+        in: "path"
+        description: "Test id to delete"
+        required: true
+        type: "integer"
         
       responses:
         204: 
@@ -383,14 +403,6 @@ paths:
       - APIKey_header: []
           
   /exams/{idExam}:
-    parameters:
-      - $ref: '#/parameters/tokenHeaderParam'
-      - name: idExam
-        in: path
-        description: ID to delete
-        required: true
-        type: string
-        x-example: "983248798112"
     delete:
       tags: 
         - "Exam"
@@ -402,7 +414,7 @@ paths:
         204: 
           description: 'successful'
         400:
-          $ref: "#/responses/UnauthorizedError"
+          description: 'Invalid ID'
         404: 
           description: 'not found'
       security: 
@@ -480,7 +492,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Update Assignment"
+        description: "Update Test"
         required: true
         schema:
           $ref: "#/definitions/Assignments"
@@ -508,7 +520,13 @@ paths:
       operationId: "DeleteAssignmentById"
       produces: 
       - "application/json"
-
+      parameters:
+      - name: "idAssignment"
+        in: "path"
+        description: "Assignment id to delete"
+        required: true
+        type: "integer"
+        
       responses:
         204: 
           description: 'successful'
@@ -595,6 +613,12 @@ paths:
       operationId: "DeleteWorkgroupById"
       produces: 
       - "application/json"
+      parameters:
+      - name: "idWorkgroup"
+        in: "path"
+        description: "Workgroup id to delete"
+        required: true
+        type: "integer"
         
       responses:
         204: 
@@ -687,6 +711,12 @@ paths:
       operationId: "DeleteWorkgroup'sPostById"
       produces: 
       - "application/json"
+      parameters:
+      - name: "idPost"
+        in: "path"
+        description: "Post id to delete"
+        required: true
+        type: "integer"
         
       responses:
         204: 
@@ -714,6 +744,9 @@ paths:
       - in: "query"
         name: "idCourse"
         type: "integer"
+      - in: "query"
+        name: "nameCourse"
+        type: "string"
 
       responses:
         200:
@@ -780,6 +813,12 @@ paths:
       operationId: "DeleteBookById"
       produces: 
       - "application/json"
+      parameters:
+      - name: "idBook"
+        in: "path"
+        description: "Book id to delete"
+        required: true
+        type: "integer"
         
       responses:
         204: 
@@ -845,7 +884,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Update Course"
+        description: "Update Test"
         required: true
         schema:
           $ref: "#/definitions/Courses"
@@ -873,6 +912,12 @@ paths:
       operationId: "DeleteCourseById"
       produces: 
       - "application/json"
+      parameters:
+      - name: "idCourse"
+        in: "path"
+        description: "Course id to delete"
+        required: true
+        type: "integer"
         
       responses:
         204: 
@@ -941,14 +986,6 @@ definitions:
         format: "email"
       password:
         type: "string"
-    required:
-      - idStudent
-      - nameStudent
-    example:
-      idStudent: 753847
-      nameStudent: "Alessandro"
-      emailStudent: "alessandro.wioqe@sue.com"
-      password: "Pkejfwie84"
 
   Professors:
     type: "object"
@@ -962,84 +999,47 @@ definitions:
         format: "email"
       password:
         type: "string"
-    required: 
-      - idProfessor
-      - nameProfessor 
-    example: 
-      idProfessor: 12273
-      nameProfessor: "Matteo"
-      emailProfessor: "matteo.ghgh@ueh.com"
-      password: "SedqjER-2jhd"
 
   Tests: 
-    type: "object"
-    properties:
-      idTest:
-        type: "integer"
-      nameTest: 
-        type: "string"
-      questions:
-        type: "array"
-        items: 
-          type: "object"
-          properties:
-            idQuestion:
-              type: "integer"
-    required: 
-      - idTest
-      - nameTest
-    example:
-      idTest: 28939123
-      nameTest: analisi
-      questions: [918239,10293810,123810,12831]
-
+   type: "object"
+   properties:
+    idTest:
+      type: "integer"
+    nameTest: 
+      type: "string"
+    question:
+      type: "array"
+      items: 
+        type: "object"
+        properties:
+          idQuestion:
+            type: "integer"
+          text: 
+            type: "string"
 
 
   Exams: 
-    type: "object"
-    properties:
-      idExam:
-        type: "integer"
-      nameExam: 
-        type: "string"
-      idProfessor:
-        type: "integer"
-      idCourse: 
-        type: "integer"
-      idTest:
-        type: "integer"
-      deadline:
-        type: "string"
-        format: "date-time"
-      examType:
-        type: "string"
-        description: "Type of Exam"
-        enum:
-          - "oral"
-          - "write"
-          - "practical"
-      description:
-        type: "string"
-    required:
-      - idExam
-      - nameExam
-      - idProfessor
-      - idCourse
-      - idTest
-      - deadline 
-      - examType
-      
-    example:
-      idExam: 9283091
-      nameExam: "analisi 1"
-      idProfessor: 1672488
-      idCourse: 8823749
-      idTest: 58379842
-      deadline: "2018-12-06 12:34:21"
-      examType: 'oral'
-      description: "gfuytjftesythjhtfyghhkuiygfyrsawrsfdhfj"
-      
-
+   type: "object"
+   properties:
+    idExam:
+      type: "integer"
+    nameExam: 
+      type: "string"
+    idProfessor:
+      type: "integer"
+    idCourse: 
+      type: "integer"
+    deadline:
+      type: "string"
+      format: "date-time"
+    examType:
+      type: "string"
+      description: "Type of Exam"
+      enum:
+        - "oral"
+        - "write"
+        - "practical"
+  
   Assignments:
     type: "object"
     properties:
@@ -1059,25 +1059,6 @@ definitions:
       obligatory:
         type: "boolean"
         default: false
-      descriprion:
-        type: "string"
-    required:
-      - idAssignment
-      - nameAssignment
-      - idTest
-      - idProfessor
-      - idCourse
-      - deadline
-      - obligatory
-    example: 
-      idAssignment: 9283091
-      nameAssignment: "assignment 1"
-      idProfessor: 1672488
-      idCourse: 8823749
-      idTest: 58379842
-      deadline: "2018-12-06 12:34:21"
-      obligatory: true
-      description: "wqhjfghjqwhfiuqwfio"
 
   Workgroups:
     type: "object"
@@ -1093,14 +1074,6 @@ definitions:
           properties:
             idStudent:
               type: "integer"
-    required:
-      - idWorkgroup
-      - nameWorkgroup
-      - Members
-    example:
-      idWorkgroup: 2988497
-      nameWorkgroup: "iProjectIS2"
-      Members: array
             
   Workgroups|idWorkgoup|posts:
     type: "object"
@@ -1118,13 +1091,6 @@ definitions:
               type: "integer"
             message: 
               type: "string"
-    required:
-      - idWorkgroup
-      - idPost
-    example: 
-      idWorkgroup: 18381783
-      idPost: 27378
-      Posts: array
   
   Books:
     type: "object"
@@ -1140,22 +1106,7 @@ definitions:
       sold:
         type: "boolean"
         default: false
-      deadline: 
-        type: "string"
-        format: "date-time"
-    required: 
-      - idBook
-      - idStudent
-      - deadline 
-      - sold
-    example:
-      idBook: 34290239
-      title: "cavanda & Co."
-      idStudent: 567320
-      idCourse: 6948248
-      sold: "false"
-      deadline: "2018-12-13 14:07:56"
- 
+        
   Courses:
     type: "object"
     properties:

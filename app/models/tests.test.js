@@ -89,12 +89,12 @@ describe('DELETE /tests/4321', function () {
         request(app)
             .delete('/v1/tests/4321')
             .expect(400, done)
-    });
-});
+    })
+})
 describe('DELETE /tests/' + idTest, function () {
     it('respond with json containing the removed tests', function (done) {
         request(app)
             .delete('/v1/tests/'+idTest)
             .expect(204, done)
-    });
-});
+    })
+})

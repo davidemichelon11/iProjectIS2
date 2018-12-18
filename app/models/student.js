@@ -20,6 +20,14 @@ class Student{
         return students
     }
 
+    //find student by name
+    static async findByName(criterias){        
+        var students = studentsTable.filter(u => {
+            return u.name === name
+        });
+        return students
+    }
+
     //adding a student
     static async addStudent(criterias){
         if(criterias.id===undefined){
@@ -52,5 +60,4 @@ class Student{
         return 200
     }
 }
-
 module.exports = Student;

@@ -20,6 +20,14 @@ class Professor{
         return professors
     }
 
+    //find professor by name
+    static async findByName(name){
+        var professors = professorsTable.filter(u => {
+            return u.name === name
+        });
+        return professors
+    }
+
     //adding a professor
     static async addProfessor(criterias){  
         criterias.id = uniqid();

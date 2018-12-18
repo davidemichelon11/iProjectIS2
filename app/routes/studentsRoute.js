@@ -18,7 +18,7 @@ studentsRoutes.route('/')
 //create a student
 .post(async function(req, res){
     var student = new Student()
-    student.id= req.body.id
+    student.id = req.body.id
     student.name = req.body.name
     student.email = req.body.email
     student.password = req.body.password
