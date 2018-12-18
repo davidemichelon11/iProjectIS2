@@ -23,24 +23,9 @@ consumes:
 produces:
 - application/json
 
-#Global security for all resources's method
-security: 
-  - APIKeyHeader: []
-  - APIKeyQueryParam: []
-parameters:
-  tokenHeaderParam:
-    in: header
-    name: x-access-token
-    type: string
-    required: true
-    description: token
-    x-example: G6943LMReKj_kqdAVrAiPbpRloAfE1fqp0eVAJ-IChQcV-kv3gW-gBAzWztBEdFY
-    
 paths:
   /professors:
     x-summary: /professors
-    parameters: 
-      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Professor"
@@ -66,9 +51,7 @@ paths:
             items:
               $ref: "#/definitions/Professors"
         401:
-          $ref: "#/responses/UnauthorizedError"
-
-
+          description: "Invalid"
     post:
       summary: Create Professor
       produces: 
@@ -97,7 +80,6 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/Professors"
-
       responses:
         201:
           description: 'valid'
@@ -108,7 +90,6 @@ paths:
   
   /professors/{idProfessor}:
     parameters:
-      - $ref: '#/parameters/tokenHeaderParam'
       - name: idProfessor
         in: path
         description: ID to delete
@@ -127,16 +108,13 @@ paths:
         204: 
           description: 'successful'
         400:
-
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid"
         404: 
           description: 'not found'
 
 
   /students:
     x-summary: /students
-    parameters: 
-      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Student"
@@ -162,7 +140,7 @@ paths:
             items:
               $ref: "#/definitions/Students"
         401: 
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid"
 
 
     post:
@@ -203,7 +181,6 @@ paths:
     
   /students/{idStudent}:
     parameters:
-      - $ref: '#/parameters/tokenHeaderParam'
       - name: idStudent
         in: path
         description: ID to delete
@@ -222,15 +199,13 @@ paths:
         204: 
           description: 'successful'
         400:
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid"
         404: 
           description: 'not found'
 
 
   /tests:
     x-summary: /tests
-    parameters: 
-      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Test"
@@ -253,7 +228,7 @@ paths:
             items:
               $ref: "#/definitions/Tests"
         401:
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid"
           
 
     post:
@@ -298,7 +273,6 @@ paths:
             
   /tests/{idTest}:
     parameters:
-      - $ref: '#/parameters/tokenHeaderParam'
       - name: idTest
         in: path
         description: ID to delete
@@ -317,14 +291,12 @@ paths:
         204: 
           description: 'successful'
         400:
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid"
         404: 
           description: 'not found'
 
   /exams:
     x-summary: /exams
-    parameters: 
-      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Exam"
@@ -368,7 +340,8 @@ paths:
             items:
               $ref: "#/definitions/Exams"
         401:
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid Input"
+          
     post:
       summary: Create Exam
       produces: 
@@ -384,8 +357,10 @@ paths:
         201:
           description: 'Succesful'
         405:
-          description: "Invalid input"
-            
+          $ref: "#/responses/UnauthorizedError"
+      security: 
+      - APIKey_query: []
+      - APIKey_header: []
     put:
       summary: Update Exams
       produces: 
@@ -403,6 +378,9 @@ paths:
           description: "Invalid exam supplied"
         404:
           description: "Exam not found"
+      security: 
+      - APIKey_query: []
+      - APIKey_header: []
           
   /exams/{idExam}:
     parameters:
@@ -420,7 +398,6 @@ paths:
       operationId: "DeleteExamById"
       produces: 
       - "application/json"
-        
       responses:
         204: 
           description: 'successful'
@@ -428,12 +405,14 @@ paths:
           $ref: "#/responses/UnauthorizedError"
         404: 
           description: 'not found'
+      security: 
+      - APIKey_query: []
+      - APIKey_header: []
+
 
 
   /assignments:
     x-summary: /assignments
-    parameters: 
-      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Assignment"
@@ -474,7 +453,7 @@ paths:
             items:
               $ref: "#/definitions/Assignments"
         401: 
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid"
 
     post:
       summary: Create Assignment
@@ -516,7 +495,6 @@ paths:
           
   /assignments/{idAssignment}:
     parameters:
-      - $ref: '#/parameters/tokenHeaderParam'
       - name: idAssignment
         in: path
         description: ID to delete
@@ -535,14 +513,12 @@ paths:
         204: 
           description: 'successful'
         400:
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid input"
         404: 
           description: 'not found'
 
   /workgroups:
     x-summary: /workgroups
-    parameters: 
-      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Workgroup"
@@ -564,7 +540,7 @@ paths:
             items:
               $ref: "#/definitions/Workgroups"
         401:
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid input"
 
     post:
       summary: Create Workgroup
@@ -606,7 +582,6 @@ paths:
           
   /workgroups/{idWorkgroup}:
     parameters:
-      - $ref: '#/parameters/tokenHeaderParam'
       - name: idWorkgroup
         in: path
         description: ID to delete
@@ -625,14 +600,12 @@ paths:
         204: 
           description: 'successful'
         400:
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid input"
         404: 
           description: 'not found'
 
   /workgroups/idWorkgroup/posts:
     x-summary: /workgroups/{idWorkgroup}/posts
-    parameters: 
-      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Workgroup's Post"
@@ -658,7 +631,7 @@ paths:
             items:
               $ref: "#/definitions/Workgroups|idWorkgoup|posts"
         401:
-           $ref: "#/responses/UnauthorizedError"
+           description: "invalid input"
 
 
     post:
@@ -701,7 +674,6 @@ paths:
           
   /workgroups/posts/{idPost}:
     parameters:
-      - $ref: '#/parameters/tokenHeaderParam'
       - name: idPost
         in: path
         description: ID to delete
@@ -720,14 +692,12 @@ paths:
         204: 
           description: 'successful'
         400:
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid input"
         404: 
           description: 'not found'
 
   /books:
     x-summary: /books
-    parameters:
-      - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Book"
@@ -753,7 +723,7 @@ paths:
             items:
               $ref: "#/definitions/Books"
         401:
-           $ref: "#/responses/UnauthorizedError"
+           description: "invalid input"
 
 
     post:
@@ -797,7 +767,6 @@ paths:
           
   /books/{idBook}:
     parameters:
-      - $ref: '#/parameters/tokenHeaderParam'
       - name: idBook
         in: path
         description: ID to delete
@@ -816,17 +785,14 @@ paths:
         204: 
           description: 'successful'
         400:
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid input"
 
-          
         404: 
           description: 'not found'
 
             
   /courses:
     x-summary: /courses
-    parameters:
-        - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Course"
@@ -852,7 +818,7 @@ paths:
             items:
               $ref: "#/definitions/Courses"
         401:
-           $ref: "#/responses/UnauthorizedError"
+          description: "invalid input"
 
     post:
       summary: Create Course
@@ -894,7 +860,6 @@ paths:
 
   /courses/{idCourse}:
     parameters:
-      - $ref: '#/parameters/tokenHeaderParam'
       - name: idCourse
         in: path
         description: ID to delete
@@ -913,14 +878,12 @@ paths:
         204: 
           description: 'successful'
         400:
-          $ref: "#/responses/UnauthorizedError"
+          description: "invalid input"
         404: 
           description: 'not found'
 
   /delivery:
     x-summary: /deliveries
-    parameters:
-        - $ref: '#/parameters/tokenHeaderParam'
     get:
       tags: 
         - "Delivery"
@@ -945,7 +908,8 @@ paths:
             items:
               $ref: "#/definitions/Deliveries"
         401:
-           $ref: "#/responses/UnauthorizedError"
+           description: "invalid input"
+           
     post:
       summary: Create Delivery
       produces: 
@@ -957,7 +921,6 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/Deliveries" 
-         
       responses:
         201:
           description: 'successful'
@@ -1248,14 +1211,22 @@ responses:
     headers: 
       WWW_Authenticate:
         type: string
-        
+
 securityDefinitions:
-   APIKeyHeader:
-     type: apiKey
-     in: header
-     name: x-access-token
-   APIKeyQueryParam:
+  APIKey_query:
      type: apiKey
      in: query
-     name: token
-  
+     name: token_in_query
+  APIKey_header:
+     type: apiKey
+     in: header
+     name: token_in_header
+ 
+parameters:
+  tokenHeaderParam:
+    in: header
+    name: x-access-token
+    type: string
+    required: true
+    description: token
+    x-example: G6943LMReKj_kqdAVrAiPbpRloAfE1fqp0eVAJ-IChQcV-kv3gW-gBAzWztBEdFY
