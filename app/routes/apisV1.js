@@ -5,7 +5,7 @@ var routesV1 = express.Router();
 // public routes
 
 routesV1.get('/', function(req, res) {
-	res.json({ message: 'ROUTESV1 WORKS!' });
+	res.json({ message: 'ROUTESV1 WORKS !' });
 })
 
 

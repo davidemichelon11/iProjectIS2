@@ -4,6 +4,6 @@ node_js:
 deploy:
   provider: heroku
   api_key:
-    secure: 84132968-8375-443e-b639-9d2af665100a
+    secure: $HEROKU_KEY
   app:
     develop: iprojectis2
