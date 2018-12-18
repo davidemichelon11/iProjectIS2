@@ -5,7 +5,7 @@ const tokenChecker = function(req, res, next) {
 	// check header or url parameters or post parameters for token
 	var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-	if(req.method == 'POST')
+	if(req.method == 'GET')
 		next()
 	// decode token
 	else if (token) {
@@ -30,10 +30,8 @@ const tokenChecker = function(req, res, next) {
 		return res.status(401).send({ 
 			success: false, 
 			message: 'No token provided.'
-		});
-		
+		});	
 	}
-	
 }
 
 module.exports = tokenChecker

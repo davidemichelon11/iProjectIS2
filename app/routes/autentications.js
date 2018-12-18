@@ -14,14 +14,14 @@ authenticationsRoutes.post('/', async function(req, res) {
 	
 	if (JSON.stringify(user) == '[]') {
 		// user not found
-		res.json({ success: false, message: 'Authentication failed. User not found.' });
+		res.status(404).json({ success: false, message: 'Authentication failed. User not found.' });
 		
 	} else {
 
 		// check if password matches
 		if (user.password != req.body.password) {
 			// wrong password
-			res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+			res.status(403).json({ success: false, message: 'Authentication failed. Wrong password.' });
 
 		} else {
 
@@ -38,7 +38,7 @@ authenticationsRoutes.post('/', async function(req, res) {
 			var token = jwt.sign(payload, config.superSecret, options);
 
 			// signed in
-			res.json({ success: true, message: 'Enjoy your token!', token: token });
+			res.status(201).json({ success: true, message: 'This is your token!', token: token });
 		}
 
 	}

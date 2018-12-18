@@ -11,8 +11,8 @@ routesV1.get('/', function(req, res) {
 var autenticationsRoute = require('./autentications')
 routesV1.use('/autentication', autenticationsRoute)
 
-var examsRoutes = require('./examsRoute');
-routesV1.use('/exams', examsRoutes);
+var deliveriesRoute = require('./deliveriesRoute');
+routesV1.use('/deliveries', deliveriesRoute);
 
 var assignmentsRoute = require('./assignmentsRoute');
 routesV1.use('/assignments', assignmentsRoute);
@@ -24,16 +24,19 @@ var workgroupsRoute = require('./workgroupsRoute');
 routesV1.use('/workgroups', workgroupsRoute);
 
 
+var studentsRoutes = require('./studentsRoute');
+routesV1.use('/students', studentsRoutes);
+
+var professorsRoutes = require('./professorsRoute');
+routesV1.use('/professors', professorsRoutes);
+
 // ---------------------------------------------------------
 // route middleware to check authentication token
 // ---------------------------------------------------------
 var tokenChecker = require('../middlewares/tokenChecker');
 routesV1.use(tokenChecker);
 
-var studentsRoutes = require('./studentsRoute');
-routesV1.use('/students', studentsRoutes);
-
-var professorsRoutes = require('./professorsRoute');
-routesV1.use('/professors', professorsRoutes);
+var examsRoutes = require('./examsRoute');
+routesV1.use('/exams', examsRoutes);
 
 module.exports = routesV1;
