@@ -32,7 +32,7 @@ class Professor{
         if(professorIndex == -1)
             return 404
         
-        professorsTable.splice(criterias, 1)
+        professorsTable.splice(professorIndex, 1)
         return 200
          
     }

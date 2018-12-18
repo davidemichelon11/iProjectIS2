@@ -34,7 +34,7 @@ class Student{
         if(studentIndex == -1)
             return 404
         
-        studentsTable.splice(criterias, 1)
+        studentsTable.splice(studentIndex, 1)
         return 200
          
     }

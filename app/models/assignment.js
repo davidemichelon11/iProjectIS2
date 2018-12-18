@@ -36,7 +36,7 @@ class Assignment{
         if(assignmentIndex == -1)
             return 404
         
-        assignmentTable.splice(criterias, 1)
+        assignmentTable.splice(assignmentIndex, 1)
         return 200
          
     }
