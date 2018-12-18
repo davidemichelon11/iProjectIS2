@@ -30,6 +30,8 @@ routesV1.use('/students', studentsRoutes);
 var professorsRoutes = require('./professorsRoute');
 routesV1.use('/professors', professorsRoutes);
 
+var booksRoute = require('./booksRoute');
+routesV1.use('/books', booksRoute);
 // ---------------------------------------------------------
 // route middleware to check authentication token
 // ---------------------------------------------------------
@@ -39,7 +41,6 @@ routesV1.use(tokenChecker);
 var examsRoutes = require('./examsRoute');
 routesV1.use('/exams', examsRoutes);
 
-var booksRoute = require('./booksRoute');
-routesV1.use('/books', booksRoute);
+
 
 module.exports = routesV1;
