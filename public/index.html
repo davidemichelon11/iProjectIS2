@@ -1,0 +1,142 @@
+<html>
+    <head>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!--JQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">        
+        
+        <!--Script used for navbar-->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.sidenav');
+                var instances = M.Sidenav.init(elems, {});
+            });
+        </script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+
+        .test{
+            display: inline-block;
+            position: fixed;
+            left: 30%;
+            width: 40%;
+            margin-top: 5%;
+            background-color: #ffffff52;
+            /*background-color: transparent;*/
+            
+        }
+
+        .text_color{
+            color: black;
+        }
+
+        .test:hover{
+            background-color: #ffffffb0;
+            
+
+            /*background-color: transparent;*/
+            
+        }
+
+        .title{
+            color: black;
+        }
+
+        body{
+            /*
+            background-image: url(https://ufficiostampabasilicata.it/wp-content/uploads/2018/04/future-of-work.jpg);
+            */
+            
+            background-image: url(https://denmark.dk/-/media/denmarkdk/link-cards/1studiegruppe-gettyimages-637874086.ashx?h=1080&la=en&w=1920&hash=DD514C2927E2F2D2F897ADCC16188E425159683F); 
+            
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .link{
+            color: whitesmoke;
+        }
+        
+        .size{
+            width: 10%;
+        }
+
+        .name{
+            line-height: 0.3em;
+            color: #b3afaf;
+            position: absolute;
+            bottom: 5%;
+            left: 0;
+            padding: 1.3em;
+            text-align: left;
+        }
+
+        .form{
+            width: 100%;
+        }
+        </style>
+
+        <nav>
+            <div class="nav-wrapper brown darken-4">
+                <a href="" class="brand-logo">iProjectIS2</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/#">Student</a></li>
+                    <li><a href="/#">Professor</a></li>
+                    <li><a href="/exams">Exam</a></li>
+                    <li><a href="/#">Assignment</a></li>
+                    <li><a href="/#">Workgroup</a></li>
+                    <!-- <li><a href="/v1/tests">Test</a></li> -->
+                </ul>
+            </div>
+        </nav>
+    
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="/#">Student</a></li>
+            <li><a href="/#">Professor</a></li>
+            <li><a href="/exams">Exam</a></li>
+            <li><a href="/#">Assignment</a></li>
+            <li><a href="/#">Workgroup</a></li>
+            <!-- <li><a href="/v1/tests">Test</a></li> -->
+        </ul>
+
+        
+    </head>
+    <body>
+        <div class="card large test z-depth-3">
+            <h1 class="center title">iProjectIS2</h1>
+            <div class="row form">
+                <div class="input-field col s12">
+                    <input placeholder="Placeholder" id="user_name" type="text" class="validate">
+                    <label for="user_name" class="text_color">User Name</label>
+                </div>
+            </div>
+            <div class="row form">
+                <div class="input-field col s12">
+                    <input placeholder="Placeholder" id="password" type="password" class="validate">
+                    <label for="password" class="text_color">Password</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="name">
+            <p>Matteo Luca</p>
+            <p>Lorenzo Cavada</p>
+            <p>Davide Michelon</p>
+            <p>Alessandro Grassi</p>
+            <p>Alessandro Fontanella</p>
+        </div>
+    </body>
+
+
+</html>    
+
+  

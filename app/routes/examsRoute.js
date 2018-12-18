@@ -18,15 +18,15 @@ examsRoutes.route('/')
 .post(async function (req, res) {
     var newExam = new Exam()
     //check if all fields are sent, if not send 403 error
-    if(Object.keys(req.body).length < 5){
+    if(Object.keys(req.body).length < 6){
             res.status(403).send('Error 403: Not enough parmenters')
     }else{
+        newExam.id = req.body.id
         newExam.name = req.body.name
         newExam.profName = req.body.profName
         newExam.courseName = req.body.courseName
         newExam.deadline = req.body.deadline
         newExam.examType = req.body.examType
-
         if(newExam.name === undefined || newExam.profName === undefined || newExam.courseName === undefined || newExam.deadline === undefined || newExam.examType === undefined)
             res.status(403).send('Error 403: Not all parameters given')
         else{

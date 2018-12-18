@@ -26,7 +26,7 @@ class Workgroup{
         if(matchingIndex == -1)
             return 404
 
-        workgroupsTable.splice(criterias, 1)
+        workgroupsTable.splice(matchingIndex, 1)
         return 200
     }
 

@@ -23,6 +23,7 @@ consumes:
 - application/json
 produces:
 - application/json
+
 paths:
 
   /professors:
@@ -47,10 +48,12 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Professors"
-
-
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Professors"
+        401:
+          description: "Invalid"
     post:
       summary: Create Professor
       produces: 
@@ -79,7 +82,6 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/Professors"
-
       responses:
         201:
           description: 'valid'
@@ -89,7 +91,13 @@ paths:
           description: "Test not found"
   
   /professors/{idProfessor}:
-    
+    parameters:
+      - name: idProfessor
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "912831293"
     delete:
       tags: 
         - "Professor"
@@ -108,7 +116,7 @@ paths:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          description: "invalid"
         404: 
           description: 'not found'
 
@@ -135,8 +143,12 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Students"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Students"
+        401: 
+          description: "invalid"
 
 
     post:
@@ -176,6 +188,13 @@ paths:
           description: "not found"
     
   /students/{idStudent}:
+    parameters:
+      - name: idStudent
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "965841289"
     delete:
       tags: 
         - "Student"
@@ -194,7 +213,7 @@ paths:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          description: "invalid"
         404: 
           description: 'not found'
 
@@ -218,8 +237,12 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Tests"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Tests"
+        401:
+          description: "invalid"
           
 
     post:
@@ -263,6 +286,13 @@ paths:
             application/json: 
             
   /tests/{idTest}:
+    parameters:
+      - name: idTest
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "4742934726"
     delete:
       tags: 
         - "Test"
@@ -281,7 +311,7 @@ paths:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          description: "invalid"
         404: 
           description: 'not found'
 
@@ -326,7 +356,12 @@ paths:
         200:
           description: 'Successful Response'
           schema: 
-            $ref: "#/definitions/Exams"
+            type: "array"
+            items:
+              $ref: "#/definitions/Exams"
+        401:
+          description: "invalid Input"
+          
     post:
       summary: Create Exam
       produces: 
@@ -342,8 +377,10 @@ paths:
         201:
           description: 'Succesful'
         405:
-          description: "Invalid input"
-            
+          $ref: "#/responses/UnauthorizedError"
+      security: 
+      - APIKey_query: []
+      - APIKey_header: []
     put:
       summary: Update Exams
       produces: 
@@ -361,6 +398,9 @@ paths:
           description: "Invalid exam supplied"
         404:
           description: "Exam not found"
+      security: 
+      - APIKey_query: []
+      - APIKey_header: []
           
   /exams/{idExam}:
     delete:
@@ -370,13 +410,6 @@ paths:
       operationId: "DeleteExamById"
       produces: 
       - "application/json"
-      parameters:
-      - name: "idExam"
-        in: "path"
-        description: "Exam id to delete"
-        required: true
-        type: "integer"
-        
       responses:
         204: 
           description: 'successful'
@@ -384,6 +417,10 @@ paths:
           description: 'Invalid ID'
         404: 
           description: 'not found'
+      security: 
+      - APIKey_query: []
+      - APIKey_header: []
+
 
 
   /assignments:
@@ -423,9 +460,12 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Assignments"
-
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Assignments"
+        401: 
+          description: "invalid"
 
     post:
       summary: Create Assignment
@@ -466,6 +506,13 @@ paths:
           description: "Assignment not found"
           
   /assignments/{idAssignment}:
+    parameters:
+      - name: idAssignment
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "142782346"
     delete:
       tags: 
         - "Assignment"
@@ -484,7 +531,7 @@ paths:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          description: "invalid input"
         404: 
           description: 'not found'
 
@@ -506,8 +553,12 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Workgroups"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Workgroups"
+        401:
+          description: "invalid input"
 
     post:
       summary: Create Workgroup
@@ -548,6 +599,13 @@ paths:
           description: " not found"
           
   /workgroups/{idWorkgroup}:
+    parameters:
+      - name: idWorkgroup
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "57886973"
     delete:
       tags: 
         - "Workgroup"
@@ -566,7 +624,7 @@ paths:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          description: "invalid input"
         404: 
           description: 'not found'
 
@@ -592,8 +650,12 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Workgroups|idWorkgoup|posts"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Workgroups|idWorkgoup|posts"
+        401:
+           description: "invalid input"
 
 
     post:
@@ -635,6 +697,13 @@ paths:
           description: "not found" 
           
   /workgroups/posts/{idPost}:
+    parameters:
+      - name: idPost
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "3983094982"
     delete:
       tags: 
         - "Workgroup's Post"
@@ -653,7 +722,7 @@ paths:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          description: "invalid input"
         404: 
           description: 'not found'
 
@@ -682,8 +751,12 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Books"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Books"
+        401:
+           description: "invalid input"
 
 
     post:
@@ -726,6 +799,13 @@ paths:
           description: "not found"
           
   /books/{idBook}:
+    parameters:
+      - name: idBook
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "09568722384"
     delete:
       tags: 
         - "Book"
@@ -744,7 +824,8 @@ paths:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          description: "invalid input"
+
         404: 
           description: 'not found'
 
@@ -771,9 +852,12 @@ paths:
       responses:
         200:
           description: Successful Response
-          schema: 
-            $ref: "#/definitions/Courses"
-
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Courses"
+        401:
+          description: "invalid input"
 
     post:
       summary: Create Course
@@ -814,6 +898,13 @@ paths:
           description: "Course not found"
 
   /courses/{idCourse}:
+    parameters:
+      - name: idCourse
+        in: path
+        description: ID to delete
+        required: true
+        type: string
+        x-example: "092781356221"
     delete:
       tags: 
         - "Course"
@@ -832,11 +923,54 @@ paths:
         204: 
           description: 'successful'
         400:
-          description: 'Invalid ID'
+          description: "invalid input"
         404: 
           description: 'not found'
 
-
+  /delivery:
+    x-summary: /deliveries
+    get:
+      tags: 
+        - "Delivery"
+      summary: List of Delivery
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "idDelivery"
+        type: "integer"
+      - in: "query"
+        name: "idStudent"
+        type: "integer"
+      - in: "query"
+        name: "idExam"
+        type: "integer"
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Deliveries"
+        401:
+           description: "invalid input"
+           
+    post:
+      summary: Create Delivery
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Delivery object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Deliveries" 
+      responses:
+        201:
+          description: 'successful'
+        405:
+          description: "Invalid input"
 
 definitions:
 
@@ -982,4 +1116,68 @@ definitions:
         type: "integer"
       CFU: 
         type: "integer"
+    required: 
+      - idCourse
+      - idProfessor
+      - CFU
+    example: 
+      idCourse: 87498
+      idProfessor: 3798218
+      CFU: 12
+  
+  Deliveries:
+    type: "object"
+    properties:
+      idDelivery:
+        type: "integer"
+      idStudent:
+        type: "integer"
+      idExam:
+        type: "integer"
+      answers:
+        type: "array"
+        items: 
+          type: "string"
+      timeDelivery:
+        type: "string"
+        format: "date-time"
         
+    required:
+      - idDelivery
+      - idStudent
+      - idExam
+      - answers
+      - timeDelivery
+    
+    example:
+      idDelivery: 8749387
+      idStudent: 3346896
+      idExam: 78997667
+      answer: array
+      deadline: "2018-12-13 15:02:30"
+      
+responses:
+  UnauthorizedError:
+    description: API key is missing or invalid
+    headers: 
+      WWW_Authenticate:
+        type: string
+
+securityDefinitions:
+  APIKey_query:
+     type: apiKey
+     in: query
+     name: token_in_query
+  APIKey_header:
+     type: apiKey
+     in: header
+     name: token_in_header
+ 
+parameters:
+  tokenHeaderParam:
+    in: header
+    name: x-access-token
+    type: string
+    required: true
+    description: token
+    x-example: G6943LMReKj_kqdAVrAiPbpRloAfE1fqp0eVAJ-IChQcV-kv3gW-gBAzWztBEdFY

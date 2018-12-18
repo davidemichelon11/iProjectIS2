@@ -6,15 +6,6 @@ if (testTable == undefined)
 
 class Test {
 
-    //aggregate all questions in all tests in one array
-    static async aggregateQuestions() {
-        var questionArray = [];
-        testTable.forEach(test => {
-            questionArray.push(test.question);
-        });
-        return questionArray;
-    }
-
     //return tests that respect criterias, if no criterias are defined all tests will be returned
     static async findTestsByCriterias(criterias) {
 
@@ -23,18 +14,6 @@ class Test {
                 && (criterias.idTest == undefined ? true : t.idTest === criterias.idTest)
         })
         return matchingTests
-    }
-
-    //return questions from all tests that respect criterias, if no criterias are defined all questions will be returned
-    static async findQuestionsByCriterias(criterias) {
-        if (criterias == undefined)
-            return aggregateQuestions()
-
-        let matchingQuestions = aggregateQuestions().filter(q => {
-            return (criterias.idTest == undefined ? true : q.idTest === criterias.idTest)
-                && (criterias.text == undefined ? true : q.text === criterias.text)
-        })
-        return matchingQuestions
     }
 
     //add a new test

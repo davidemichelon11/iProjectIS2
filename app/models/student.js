@@ -11,18 +11,28 @@ class Student{
     }
 
     //get all student
-    static async find(criterias){        
+    static async find(criterias){  
         var students = studentsTable.filter(u => {
-            return criterias.name == undefined ? true : u.name === criterias.name
-            &&     criterias.email == undefined ? true : u.email === criterias.email
-			&&     criterias.id == undefined ? true : u.id === criterias.id
+            return (criterias.name == undefined ? true : u.name === criterias.name)
+            &&     (criterias.email == undefined ? true : u.email === criterias.email)
+			&&     (criterias.id == undefined ? true : u.id === criterias.id)
+        });
+        return students
+    }
+
+    //find student by name
+    static async findByName(criterias){        
+        var students = studentsTable.filter(u => {
+            return u.name === name
         });
         return students
     }
 
     //adding a student
-    static async addStudent(criterias){  
-        criterias.id = uniqid();
+    static async addStudent(criterias){
+        if(criterias.id===undefined){
+            criterias.id = uniqid();
+        }  
         studentsTable.push(criterias);
     }
 
@@ -32,7 +42,7 @@ class Student{
         if(studentIndex == -1)
             return 404
         
-        studentsTable.splice(criterias, 1)
+        studentsTable.splice(studentIndex, 1)
         return 200
          
     }
@@ -50,5 +60,4 @@ class Student{
         return 200
     }
 }
-
 module.exports = Student;
