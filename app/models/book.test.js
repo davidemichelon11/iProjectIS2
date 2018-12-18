@@ -2,6 +2,7 @@ const request = require('supertest') //allow testing w/ good syntax
 const app     = require('../../app')
 
 describe('CRUD on /v1/books', () => {  
+  
   test('POST v1/books ', async () => {
     const response = await request(app).post('/v1/books/')
                                         .send({
@@ -9,15 +10,15 @@ describe('CRUD on /v1/books', () => {
                                             idSolder: 'frifb08b340',
                                             firstPrice: '1',
                                             lastPrice: '50',
-                                            deadline: '12122017',
+                                            deadline: '265489464897465546',
                                             sold: 'false'
                                         });    
     expect(response.status).toBe(201);
   });
 
-test('GET / should return 200', async () => {
+  test('GET / should return 200', async () => {
     const response = await request(app).get('/v1/books');
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(200);  
     var jsonRespone = response.body[0];
     delete jsonRespone.id;
     expect(jsonRespone).toEqual({
@@ -25,10 +26,10 @@ test('GET / should return 200', async () => {
                               idSolder: 'frifb08b340',
                               firstPrice: '1',
                               lastPrice: '50',
-                              deadline: '12122017',
+                              deadline: '265489464897465546',
                               sold: 'false'
-    });  
-});
+    });
+  });
 
   test('POST DOESNT WORK v1/books', async () => {
     const response = await request(app).post('/v1/books/')
@@ -49,7 +50,7 @@ test('GET / should return 200', async () => {
         idSolder: 'frifb08b340',
         firstPrice: '1',
         lastPrice: '50',
-        deadline: '12122017',
+        deadline: '2256648494651848949',
         sold: 'false'
     });
       
@@ -57,7 +58,7 @@ test('GET / should return 200', async () => {
     answare = JSON.stringify(answare)
     answare = JSON.parse(answare)
     answare = JSON.parse(answare.text)
-    var url = '/v1/books/' + answare[0].id
+    var url = '/v1/books/' + answare[0].id 
 
     const response = await request(app).delete(url)
   
@@ -84,7 +85,7 @@ test('GET / should return 200', async () => {
         idBuyer: 'sjpfrnèk',
         firstPrice: '1',
         lastPrice: '50',
-        deadline: '12122017',
+        deadline: '2516515613184135',
         sold: 'false'
     });
       
@@ -100,10 +101,8 @@ test('GET / should return 200', async () => {
                                             idBuyer: 'jdsnefnon',
                                             firstPrice: '1'
                                         });  
-  
-    
-     expect(response.status).toBe(200);
-     expect(response.body).toEqual({});
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({});
   });
 
   test('UPDATE DOESNT WORK v1/books ', async () => {

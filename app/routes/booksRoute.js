@@ -28,9 +28,13 @@ booksRoute.route('/')
         || book.deadline === undefined || book.sold === undefined || book.idSolder === undefined ){               
         res.status(403).send('Error 403: Not all parameters given')
     }else{
-        Book.addBook(book)
-        res.status(201).send('Success: book inserted')
+        Book.addBook(book).then(function(){
+            res.status(201).send('Success: book inserted')
+        }).catch(function(resu){
+            res.status(403).send({result:resu})
+        })
     }
+
 })
 
 //it is to prevent a bug

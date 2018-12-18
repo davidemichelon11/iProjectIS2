@@ -25,8 +25,17 @@ class Book{
 
     //adding a book
     static async addBook(criterias){  
-        criterias.id = uniqid();
-        bookTable.push(criterias);
+        if(criterias.id===undefined){
+            criterias.id = uniqid();
+        }
+        return new Promise( async(resolve, reject) => {
+            Book.checkBook(criterias.deadline).then(function(){
+                bookTable.push(criterias);
+                resolve()
+            }).catch(function(){
+                return reject('deadline not correct')
+            })
+        })
     }
 
     //delete a book
@@ -53,6 +62,17 @@ class Book{
         if(criterias.sold != undefined) bookTable[bookIndex].sold = criterias.sold
         
         return 200
+    }
+    
+    static checkBook(deadline){
+        return new Promise( async(resolve, reject) => {
+            var oneWeek=604800000;
+            if(deadline >= (Date.now() + oneWeek)){
+                resolve()
+            }else{
+                reject()
+            }
+        })
     }
 }
 
