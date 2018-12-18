@@ -1,0 +1,291 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script> 
+        <script>
+
+        </script>
+
+        <style>
+            .color{
+                background-color: brown;
+            }
+
+            .registerCard{
+                text-align: center;
+                position: fixed;
+                left: 25%;
+                width: 50%;
+                margin-top: 5%;
+                background-color: #ffffff52;
+            }
+
+            .registerCard:hover{
+                background-color: #ffffffd7;
+            }
+            .backgroundI{
+                background-image: url(https://denmark.dk/-/media/denmarkdk/link-cards/1studiegruppe-gettyimages-637874086.ashx?h=1080&la=en&w=1920&hash=DD514C2927E2F2D2F897ADCC16188E425159683F);                 
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                position: relative;
+            }
+
+            .formatMenu{
+                text-decoration: none;
+                color: rgb(43, 36, 36);
+            }
+
+            .listExam{
+                text-align: center;
+                position: fixed;
+                left: 25%;
+                width: 50%;
+                margin-top: 5%;
+            }
+
+            .tableExam{
+                width: 100%;
+            }
+
+            .deleteButton{
+                border: none;
+                background-color: transparent;
+            }
+
+            .deleteButton:hover {
+                color: #dc2a2a;
+            }
+
+            .deleteButton:focus {
+                outline: none;
+            }
+
+        </style>
+    </head>
+    <body onload=" getList()">
+        <!-- Simple header with fixed tabs. -->
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+            <header class="mdl-layout__header color">
+                <div class="mdl-layout__header-row color">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">iProjectIS2</span>
+                </div>
+                <!-- Tabs -->
+                <div class="mdl-layout__tab-bar mdl-js-ripple-effect color">
+                    <a href="#register" class="mdl-layout__tab is-active">Register</a>
+                    <a href="#list" class="mdl-layout__tab">List</a>
+                    <a href="#update" class="mdl-layout__tab">Update</a>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <ul class="demo-list-item mdl-list">
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                        <a href="www.google.com" class="formatMenu">Exam</a>
+                        </span>
+                    </li>
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                        <a href="www.google.com" class="formatMenu">Test</a>
+                        </span>
+                    </li>
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                        <a href="www.google.com" class="formatMenu">Assignment</a>
+                        </span>
+                    </li>
+                </ul>
+                      
+            </div>
+            <main class="mdl-layout__content content backgroundI">
+                <section class="mdl-layout__tab-panel is-active" id="register">
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp registerCard">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <h2 class="mdl-card__title-text">Add a new Exam</h2>
+                        </div>
+                        <form method="post" action="http://localhost/v1/exams" id="registerForm" enctype="application/x-www-form-urlencoded">
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="name">
+                                <label class="mdl-textfield__label" for="name">Exam Name</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="profName">
+                                <label class="mdl-textfield__label" for="profName">Professor Name</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="courseName">
+                                <label class="mdl-textfield__label" for="courseName">Course Name</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="date" name="deadline">
+                                <label class="mdl-textfield__label" for="deadline">Deadline</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="examType">
+                                <label class="mdl-textfield__label" for="examType">Exam Type</label>
+                            </div>
+                        </form>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <button form="registerForm" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
+                        </div>
+
+                        <script>
+                            $("#registerForm").submit(function( event ) {                                
+                                event.preventDefault();                                
+                                // Get some values from elements on the page:
+                                var $form = $(this),
+                                name = $form.find("input[name='name']").val();
+                                profName= $form.find("input[name='profName']").val();
+                                courseName = $form.find("input[name='courseName']").val();
+                                deadline = $form.find("input[name='deadline']").val();
+                                examType = $form.find("input[name='examType']").val();
+                                
+                                var parts = deadline.split('-');
+                                // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
+                                // January - 0, February - 1, etc.
+                                var mydate = new Date(parts[0], parts[1] - 1, parts[2]); 
+                               
+
+                                var dateT = Date.now();
+                                mydate = mydate.getTime();
+                                if((mydate-dateT)>0){
+                                    if(!(profName== undefined || name == undefined || courseName == undefined || deadline == undefined || examType == undefined ||
+                                        profName== "" || name == "" || courseName == "" || deadline == "" || examType == "")){    
+                                        url = $form.attr("action");                             
+                                        $.post(url, {name: name,
+                                                    profName: profName,
+                                                    courseName: courseName,
+                                                    deadline: deadline,
+                                                    examType: examType}).success(function(){
+                                                        alert("Inserted completed");
+                                                    });
+                                    }else{
+                                        alert("Error, not all parameters given");
+                                    }
+                                    window.location.reload();
+                                }
+                                else{
+                                    alert("Wrong Date");                                   
+                                }
+
+                            });
+                        </script>
+                    </div>
+                </section>
+
+                <section class="mdl-layout__tab-panel" id="list">
+                    <div class="page-content">
+                        <div class="listExam" id="listExams">
+                            <script language="javascript" type="text/javascript">     
+                                    function getList(){                                   
+                                        $.get("http://localhost/v1/exams").success(function(data){
+                                            var exams = data;                                           
+
+                                            var myTable= "<table class=\"mdl-data-table mdl-js-data-table mdl-shadow--2dp tableExam\" >";
+                                            myTable+= "<th class=\"mdl-data-table__cell--non-numeric\">ID</th>";
+                                            myTable+= "<th>Name</th>";
+                                            myTable+= "<th>Course</th>";
+                                            myTable+= "<th>Professor</th>";
+                                            myTable+= "<th>Deadline</th>";
+                                            myTable+= "<th>Exam Type</th>";
+                                            for (var i=0; i<exams.length; i++) {
+                                                myTable+="<tr><td  class=\"mdl-data-table__cell--non-numeric\">" + exams[i].id + "</td>";
+                                                myTable+="<td>" + exams[i].name + "</td>";
+                                                myTable+="<td>" + exams[i].courseName + "</td>";
+                                                myTable+="<td>" + exams[i].profName+ "</td>";
+                                                myTable+="<td>" + exams[i].deadline + "</td>";
+                                                myTable+="<td>" + exams[i].examType + "</td>";
+                                                myTable+="<td><button onClick=\"deleteP('"+exams[i].id+"')\" class=\"material-icons deleteButton\">delete</button></td></tr>";
+                                            }  
+                                            myTable+="</table>";
+                                            
+                                            document.getElementById('listExams').innerHTML = myTable;
+                                        });
+                                    }                                
+
+                                    function deleteP(profName) {
+                                        var url = "http://localhost/v1/exams/" + profName;
+                                        $.ajax({
+                                            url: url,
+                                            type: "DELETE",
+                                            success: function(){alert("Delete completed");window.location.reload();}
+                                        });
+                                    };
+                            </script> 
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mdl-layout__tab-panel" id="update">
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp registerCard">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <h2 class="mdl-card__title-text">Update a Professor</h2>
+                        </div>
+                        <form id="updateForm"  action="http://localhost/v1/exams">
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="id">
+                                <label class="mdl-textfield__label" for="id">Id</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="name">
+                                <label class="mdl-textfield__label" for="name">Name</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="courseName">
+                                <label class="mdl-textfield__label" for="courseName">Course Name</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="profName">
+                                <label class="mdl-textfield__label" for="profName">Professor Name</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="deadline">
+                                <label class="mdl-textfield__label" for="deadline">Deadline</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="examType" name="examType">
+                                <label class="mdl-textfield__label" for="examType">Exam Type</label>
+                            </div>
+                        </form>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <button form="updateForm" class="mdl-button mdl-js-button mdl-js-ripple-effect">Update</button>
+                        </div>  
+    
+                        <script>
+                            $("#updateForm").submit(function( event ) {                                
+                                event.preventDefault();                                
+                                // Get some values from elements on the page:
+                                var data = "";
+                                var $form = $(this),
+                                url2 = $form.attr("action") + "/" + $form.find("input[name='id']").val();  
+                                name = $form.find("input[name='name']").val(); 
+                                profName= $form.find("input[name='profName']").val();
+                                courseName = $form.find("input[name='courseName']").val();
+                                deadline = $form.find("input[name='deadline']").val();
+                                examType = $form.find("input[name='examType']").val();
+
+                                if(name != undefined && name != ""){ data += "name=" + name + "&";}
+                                if(profName!= undefined && profName!= ""){ data += "profName=" + profName+ "&";}
+                                if(courseName != undefined && courseName != ""){ data += "courseName=" + courseName + "&";}
+                                if(deadline != undefined && deadline != ""){ data += "deadline=" + deadline + "&";}                               
+                                if(examType != undefined && examType != ""){ data += "examType=" + examType + "&";}
+
+                                $.ajax({ 
+                                    url: url2,
+                                    type: "PUT",
+                                    data: data,
+                                    success: function(){alert("Update completed");}
+                                });           
+                                window.location.reload();        
+                            });
+                        </script>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </body>
+</html>      

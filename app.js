@@ -14,10 +14,11 @@ app.use(function (req, res, next) { //consente cross domain
 
 //set bodyParser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 //test APIs
-app.get('/', express.static('public/'));
+app.get('/', express.static('public'));
+app.use('/exams', express.static('app/frontend/'));
 
 
 //routes V1

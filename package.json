@@ -27,7 +27,8 @@
     "materialize-css": "^1.0.0-rc.2",
     "package.json": "^2.0.1",
     "supertest": "^3.3.0",
-    "uniqid": "^5.0.3"
+    "uniqid": "^5.0.3",
+    "xmlhttprequest": "^1.8.0"
   },
   "jest": {
     "verbose": true,
