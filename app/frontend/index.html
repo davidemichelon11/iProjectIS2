@@ -5,7 +5,8 @@
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script> 
         <script>
-
+            var token = "";
+            localStorage.setItem("token", token);
         </script>
 
         <style>
@@ -128,6 +129,10 @@
                                 <input class="mdl-textfield__input" type="text" name="examType">
                                 <label class="mdl-textfield__label" for="examType">Exam Type</label>
                             </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="token">
+                                <label class="mdl-textfield__label" for="token">Token</label>
+                            </div>
                         </form>
                         <div class="mdl-card__actions mdl-card--border">
                             <button form="registerForm" class="mdl-button mdl-js-button mdl-js-ripple-effect">Register</button>
@@ -143,6 +148,8 @@
                                 courseName = $form.find("input[name='courseName']").val();
                                 deadline = $form.find("input[name='deadline']").val();
                                 examType = $form.find("input[name='examType']").val();
+                                token = $form.find("input[name='token']").val();
+                                localStorage.setItem("token", token);
                                 
                                 var parts = deadline.split('-');
                                 // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
@@ -160,7 +167,8 @@
                                                     profName: profName,
                                                     courseName: courseName,
                                                     deadline: deadline,
-                                                    examType: examType}).success(function(){
+                                                    examType: examType,
+                                                    token: token}).success(function(){
                                                         alert("Inserted completed");
                                                     });
                                     }else{
@@ -209,9 +217,11 @@
 
                                     function deleteP(profName) {
                                         var url = "https://iprojectis2.herokuapp.com/v1/exams//" + profName;
+                                        var tokenDelete = localStorage.getItem("token")
                                         $.ajax({
                                             url: url,
                                             type: "DELETE",
+                                            data: {token: tokenDelete},
                                             success: function(){alert("Delete completed");window.location.reload();}
                                         });
                                     };
@@ -247,8 +257,12 @@
                                 <label class="mdl-textfield__label" for="deadline">Deadline</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="examType" name="examType">
+                                <input class="mdl-textfield__input" type="text" name="examType">
                                 <label class="mdl-textfield__label" for="examType">Exam Type</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" name="token">
+                                <label class="mdl-textfield__label" for="token">Token</label>
                             </div>
                         </form>
                         <div class="mdl-card__actions mdl-card--border">
@@ -267,12 +281,18 @@
                                 courseName = $form.find("input[name='courseName']").val();
                                 deadline = $form.find("input[name='deadline']").val();
                                 examType = $form.find("input[name='examType']").val();
+                                tokenForm = $form.find("input[name='token']").val();
 
                                 if(name != undefined && name != ""){ data += "name=" + name + "&";}
                                 if(profName!= undefined && profName!= ""){ data += "profName=" + profName+ "&";}
                                 if(courseName != undefined && courseName != ""){ data += "courseName=" + courseName + "&";}
                                 if(deadline != undefined && deadline != ""){ data += "deadline=" + deadline + "&";}                               
                                 if(examType != undefined && examType != ""){ data += "examType=" + examType + "&";}
+                                if(tokenForm != undefined && examType != ""){
+                                     data += "examType=" + examType + "&";
+                                }else{
+                                    data += "token=" + localStorage.getItem("token");
+                                }
 
                                 $.ajax({ 
                                     url: url2,

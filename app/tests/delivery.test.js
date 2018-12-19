@@ -34,7 +34,8 @@ describe('/POST delivery', () => {
     test('POST on autentication / should return 201', async () => {
         const response = await request(app).post('/v1/autentication')
             .send({
-                name: 'Mario Rossi'
+                name: 'Mario Rossi',
+                password:'1234'
             });
         expect(response.statusCode).toBe(201);
         token = response.body.token

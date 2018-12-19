@@ -21,7 +21,7 @@ class Student{
     }
 
     //find student by name
-    static async findByName(criterias){        
+    static async findByName(name){        
         var students = studentsTable.filter(u => {
             return u.name === name
         });
