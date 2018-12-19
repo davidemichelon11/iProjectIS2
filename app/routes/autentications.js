@@ -9,6 +9,7 @@ const authenticationsRoutes = express.Router();
 authenticationsRoutes.post('/', async function(req, res) {
 	// find the user
 	var user = await Professor.findByName(req.body.name)
+	console.log(req.body.name + " - " + req.body.password)
 	if(JSON.stringify(user) == '[]')
 		user = await Student.findByName(req.body.name)
 	
@@ -19,7 +20,7 @@ authenticationsRoutes.post('/', async function(req, res) {
 	} else {
 
 		// check if password matches
-		if (user.password != req.body.password) {
+		if (user[0].password != req.body.password) {
 			// wrong password
 			res.status(403).json({ success: false, message: 'Authentication failed. Wrong password.' });
 
