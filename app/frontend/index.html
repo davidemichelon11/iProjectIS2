@@ -4,10 +4,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script> 
-        <script>
-            var token = "";
-            localStorage.setItem("token", token);
-        </script>
+
 
         <style>
             .color{
@@ -149,7 +146,7 @@
                                 deadline = $form.find("input[name='deadline']").val();
                                 examType = $form.find("input[name='examType']").val();
                                 token = $form.find("input[name='token']").val();
-                                localStorage.setItem("token", token);
+                                localStorage.setItem("tokenSaved", token);
                                 
                                 var parts = deadline.split('-');
                                 // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
@@ -217,7 +214,7 @@
 
                                     function deleteP(profName) {
                                         var url = "https://iprojectis2.herokuapp.com/v1/exams//" + profName;
-                                        var tokenDelete = localStorage.getItem("token")
+                                        var tokenDelete = localStorage.getItem("tokenSaved")
                                         $.ajax({
                                             url: url,
                                             type: "DELETE",
@@ -288,19 +285,17 @@
                                 if(courseName != undefined && courseName != ""){ data += "courseName=" + courseName + "&";}
                                 if(deadline != undefined && deadline != ""){ data += "deadline=" + deadline + "&";}                               
                                 if(examType != undefined && examType != ""){ data += "examType=" + examType + "&";}
-                                if(tokenForm != undefined && examType != ""){
-                                     data += "examType=" + examType + "&";
+                                if(tokenForm != undefined && tokenForm != ""){
+                                     data += "token=" + tokenForm;
                                 }else{
-                                    data += "token=" + localStorage.getItem("token");
+                                    data += "token=" + localStorage.getItem("tokenSaved");
                                 }
-
                                 $.ajax({ 
                                     url: url2,
                                     type: "PUT",
                                     data: data,
-                                    success: function(){alert("Update completed");}
-                                });           
-                                window.location.reload();        
+                                    success: function(){alert("Update completed");window.location.reload();}
+                                });            
                             });
                         </script>
                     </div>
