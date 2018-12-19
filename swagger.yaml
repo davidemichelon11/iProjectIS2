@@ -2,7 +2,6 @@ swagger: '2.0'
 info:
   version: '1.0'
   title: "iProjectIS2"
-  description: Api's for the project.
 host: iprojectis2.herokuapp.com
 basePath: "/v1"
 tags: 
@@ -15,8 +14,7 @@ tags:
 - name: "Workgroup's Post"
 - name: "Book"
 - name: "Course"
-
-  
+- name: "Delivery"
 schemes:
 - http
 consumes:
@@ -25,9 +23,8 @@ produces:
 - application/json
 
 paths:
-
   /professors:
-    x-summary: /professors
+    x-summary: /v1/professors
     get:
       tags: 
         - "Professor"
@@ -70,7 +67,31 @@ paths:
           description: 'succesful'
         405:
           description: "Invalid input"
-
+  
+  /professors/{idProfessor}:
+    parameters:
+      - name: idProfessor
+        in: path
+        description: ID 
+        required: true
+        type: string
+        x-example: "912831293"
+    delete:
+      tags: 
+        - "Professor"
+      summary: Delete Professor By Id
+      operationId: "DeleteProfessorById"
+      produces: 
+      - "application/json"
+        
+      responses:
+        204: 
+          description: 'successful'
+        400:
+          description: "invalid"
+        404: 
+          description: 'not found'
+          
     put:
       summary: Update Professor
       produces: 
@@ -89,40 +110,10 @@ paths:
           description: "Invalid test supplied"
         404:
           description: "Test not found"
-  
-  /professors/{idProfessor}:
-    parameters:
-      - name: idProfessor
-        in: path
-        description: ID to delete
-        required: true
-        type: string
-        x-example: "912831293"
-    delete:
-      tags: 
-        - "Professor"
-      summary: Delete Professor By Id
-      operationId: "DeleteProfessorById"
-      produces: 
-      - "application/json"
-      parameters:
-      - name: "idProfessor"
-        in: "path"
-        description: "Professor id to delete"
-        required: true
-        type: "integer"
-        
-      responses:
-        204: 
-          description: 'successful'
-        400:
-          description: "invalid"
-        404: 
-          description: 'not found'
 
 
   /students:
-    x-summary: /students
+    x-summary: /v1/students
     get:
       tags: 
         - "Student"
@@ -167,7 +158,30 @@ paths:
           description: 'succesful'
         405:
           description: "Invalid input"
-
+    
+  /students/{idStudent}:
+    parameters:
+      - name: idStudent
+        in: path
+        description: ID
+        required: true
+        type: string
+        x-example: "965841289"
+    delete:
+      tags: 
+        - "Student"
+      summary: Delete Student By Id
+      operationId: "DeleteStudentById"
+      produces: 
+      - "application/json"
+        
+      responses:
+        204: 
+          description: 'successful'
+        400:
+          description: "invalid"
+        404: 
+          description: 'not found'
     put:
       summary: Update Student
       produces: 
@@ -186,40 +200,10 @@ paths:
           description: "Invalid test supplied"
         404:
           description: "not found"
-    
-  /students/{idStudent}:
-    parameters:
-      - name: idStudent
-        in: path
-        description: ID to delete
-        required: true
-        type: string
-        x-example: "965841289"
-    delete:
-      tags: 
-        - "Student"
-      summary: Delete Student By Id
-      operationId: "DeleteStudentById"
-      produces: 
-      - "application/json"
-      parameters:
-      - name: "idStudent"
-        in: "path"
-        description: "Student id to delete"
-        required: true
-        type: "integer"
-        
-      responses:
-        204: 
-          description: 'successful'
-        400:
-          description: "invalid"
-        404: 
-          description: 'not found'
 
 
   /tests:
-    x-summary: /tests
+    x-summary: /v1/tests
     get:
       tags: 
         - "Test"
@@ -262,7 +246,30 @@ paths:
         405:
           description: "Invalid input"
            
- 
+  /tests/{idTest}:
+    parameters:
+      - name: idTest
+        in: path
+        description: ID
+        required: true
+        type: string
+        x-example: "4742934726"
+    delete:
+      tags: 
+        - "Test"
+      summary: Delete Test By Id
+      operationId: "DeleteTestById"
+      produces: 
+      - "application/json"
+        
+      responses:
+        204: 
+          description: 'successful'
+        400:
+          description: "invalid"
+        404: 
+          description: 'not found'
+          
     put:
       summary: Update Test
       produces: 
@@ -282,41 +289,9 @@ paths:
           description: "Invalid test supplied"
         404:
           description: "not found"
-          examples:
-            application/json: 
-            
-  /tests/{idTest}:
-    parameters:
-      - name: idTest
-        in: path
-        description: ID to delete
-        required: true
-        type: string
-        x-example: "4742934726"
-    delete:
-      tags: 
-        - "Test"
-      summary: Delete Test By Id
-      operationId: "DeleteTestById"
-      produces: 
-      - "application/json"
-      parameters:
-      - name: "idTest"
-        in: "path"
-        description: "Test id to delete"
-        required: true
-        type: "integer"
-        
-      responses:
-        204: 
-          description: 'successful'
-        400:
-          description: "invalid"
-        404: 
-          description: 'not found'
 
   /exams:
-    x-summary: /exams
+    x-summary: /v1/exams
     get:
       tags: 
         - "Exam"
@@ -381,6 +356,34 @@ paths:
       security: 
       - APIKey_query: []
       - APIKey_header: []
+
+  /exams/{idExam}:
+    parameters:
+      - $ref: '#/parameters/tokenHeaderParam'
+      - name: idExam
+        in: path
+        description: ID
+        required: true
+        type: string
+        x-example: "983248798112"
+    delete:
+      tags: 
+        - "Exam"
+      summary: Delete Exam By Id
+      operationId: "DeleteExamById"
+      produces: 
+      - "application/json"
+      responses:
+        204: 
+          description: 'successful'
+        400:
+          $ref: "#/responses/UnauthorizedError"
+        404: 
+          description: 'not found'
+      security: 
+      - APIKey_query: []
+      - APIKey_header: []
+      
     put:
       summary: Update Exams
       produces: 
@@ -401,30 +404,9 @@ paths:
       security: 
       - APIKey_query: []
       - APIKey_header: []
-          
-  /exams/{idExam}:
-    delete:
-      tags: 
-        - "Exam"
-      summary: Delete Exam By Id
-      operationId: "DeleteExamById"
-      produces: 
-      - "application/json"
-      responses:
-        204: 
-          description: 'successful'
-        400:
-          description: 'Invalid ID'
-        404: 
-          description: 'not found'
-      security: 
-      - APIKey_query: []
-      - APIKey_header: []
-
-
 
   /assignments:
-    x-summary: /assignments
+    x-summary: /v1/assignments
     get:
       tags: 
         - "Assignment"
@@ -485,6 +467,29 @@ paths:
         405:
           description: "Invalid input"
 
+  /assignments/{idAssignment}:
+    parameters:
+      - name: idAssignment
+        in: path
+        description: ID 
+        required: true
+        type: string
+        x-example: "142782346"
+    delete:
+      tags: 
+        - "Assignment"
+      summary: Delete Assigment By Id
+      operationId: "DeleteAssignmentById"
+      produces: 
+      - "application/json"
+
+      responses:
+        204: 
+          description: 'successful'
+        400:
+          description: "invalid input"
+        404: 
+          description: 'not found'
     put:
       summary: Update Assignment
       produces: 
@@ -492,7 +497,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Update Test"
+        description: "Update Assignment"
         required: true
         schema:
           $ref: "#/definitions/Assignments"
@@ -504,39 +509,9 @@ paths:
           description: "Invalid assignment supplied"
         404:
           description: "Assignment not found"
-          
-  /assignments/{idAssignment}:
-    parameters:
-      - name: idAssignment
-        in: path
-        description: ID to delete
-        required: true
-        type: string
-        x-example: "142782346"
-    delete:
-      tags: 
-        - "Assignment"
-      summary: Delete Assigment By Id
-      operationId: "DeleteAssignmentById"
-      produces: 
-      - "application/json"
-      parameters:
-      - name: "idAssignment"
-        in: "path"
-        description: "Assignment id to delete"
-        required: true
-        type: "integer"
-        
-      responses:
-        204: 
-          description: 'successful'
-        400:
-          description: "invalid input"
-        404: 
-          description: 'not found'
 
   /workgroups:
-    x-summary: /workgroups
+    x-summary: /v1/workgroups
     get:
       tags: 
         - "Workgroup"
@@ -578,6 +553,31 @@ paths:
         405:
           description: "Invalid input"
 
+
+  /workgroups/{idWorkgroup}:
+    parameters:
+      - name: idWorkgroup
+        in: path
+        description: ID
+        required: true
+        type: string
+        x-example: "57886973"
+    delete:
+      tags: 
+        - "Workgroup"
+      summary: Delete Workgroup By Id
+      operationId: "DeleteWorkgroupById"
+      produces: 
+      - "application/json"
+        
+      responses:
+        204: 
+          description: 'successful'
+        400:
+          description: "invalid input"
+        404: 
+          description: 'not found'
+ 
     put:
       summary: Update Workgroup
       produces: 
@@ -597,137 +597,9 @@ paths:
           description: "Invalid"
         404:
           description: " not found"
-          
-  /workgroups/{idWorkgroup}:
-    parameters:
-      - name: idWorkgroup
-        in: path
-        description: ID to delete
-        required: true
-        type: string
-        x-example: "57886973"
-    delete:
-      tags: 
-        - "Workgroup"
-      summary: Delete Workgroup By Id
-      operationId: "DeleteWorkgroupById"
-      produces: 
-      - "application/json"
-      parameters:
-      - name: "idWorkgroup"
-        in: "path"
-        description: "Workgroup id to delete"
-        required: true
-        type: "integer"
-        
-      responses:
-        204: 
-          description: 'successful'
-        400:
-          description: "invalid input"
-        404: 
-          description: 'not found'
-
-  /workgroups/idWorkgroup/posts:
-    x-summary: /workgroups/{idWorkgroup}/posts
-    get:
-      tags: 
-        - "Workgroup's Post"
-      summary: List of Posts in a Workgroup
-      produces:
-      - "application/json"
-      parameters:
-      - in: "query"
-        name: "idWorkgroup"
-        type: "integer"
-      - in: "query"
-        name: "nameWorkgroup"
-        type: "string"
-      - in: "query"
-        name: "idPost"
-        type: "integer"
- 
-      responses:
-        200:
-          description: Successful Response
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Workgroups|idWorkgoup|posts"
-        401:
-           description: "invalid input"
-
-
-    post:
-      summary: Create Posts in Workgroup 
-      produces: 
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Workgroups/object object"
-        required: true
-        schema:
-          $ref: "#/definitions/Workgroups|idWorkgoup|posts" 
-      
-      responses:
-        201:
-          description: 'succesful'
-        405:
-          description: "Invalid input"
-
-    put:
-      summary: Update Post in Workgroup
-      produces: 
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Workgroups/object object"
-        required: true
-        schema:
-          $ref: "#/definitions/Workgroups|idWorkgoup|posts" 
-         
-      responses:
-        201:
-          description: 'valid'
-        400:
-          description: "Invalid"
-        404:
-          description: "not found" 
-          
-  /workgroups/posts/{idPost}:
-    parameters:
-      - name: idPost
-        in: path
-        description: ID to delete
-        required: true
-        type: string
-        x-example: "3983094982"
-    delete:
-      tags: 
-        - "Workgroup's Post"
-      summary: Delete Workgroup's Post By Id
-      operationId: "DeleteWorkgroup'sPostById"
-      produces: 
-      - "application/json"
-      parameters:
-      - name: "idPost"
-        in: "path"
-        description: "Post id to delete"
-        required: true
-        type: "integer"
-        
-      responses:
-        204: 
-          description: 'successful'
-        400:
-          description: "invalid input"
-        404: 
-          description: 'not found'
 
   /books:
-    x-summary: /books
+    x-summary: /v1/books
     get:
       tags: 
         - "Book"
@@ -744,9 +616,6 @@ paths:
       - in: "query"
         name: "idCourse"
         type: "integer"
-      - in: "query"
-        name: "nameCourse"
-        type: "string"
 
       responses:
         200:
@@ -757,7 +626,6 @@ paths:
               $ref: "#/definitions/Books"
         401:
            description: "invalid input"
-
 
     post:
       summary: Create Book
@@ -770,14 +638,39 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/Books" 
-      
-         
+
       responses:
         201:
           description: 'succesful'
         405:
           description: "Invalid input"
 
+
+  /books/{idBook}:
+    parameters:
+      - name: idBook
+        in: path
+        description: ID 
+        required: true
+        type: string
+        x-example: "09568722384"
+    delete:
+      tags: 
+        - "Book"
+      summary: Delete Book By Id
+      operationId: "DeleteBookById"
+      produces: 
+      - "application/json"
+        
+      responses:
+        204: 
+          description: 'successful'
+        400:
+          description: "invalid input"
+
+        404: 
+          description: 'not found'
+          
     put:
       summary: Update Book
       produces: 
@@ -797,41 +690,10 @@ paths:
           description: "Invalid "
         404:
           description: "not found"
-          
-  /books/{idBook}:
-    parameters:
-      - name: idBook
-        in: path
-        description: ID to delete
-        required: true
-        type: string
-        x-example: "09568722384"
-    delete:
-      tags: 
-        - "Book"
-      summary: Delete Book By Id
-      operationId: "DeleteBookById"
-      produces: 
-      - "application/json"
-      parameters:
-      - name: "idBook"
-        in: "path"
-        description: "Book id to delete"
-        required: true
-        type: "integer"
-        
-      responses:
-        204: 
-          description: 'successful'
-        400:
-          description: "invalid input"
-
-        404: 
-          description: 'not found'
 
             
   /courses:
-    x-summary: /courses
+    x-summary: /v1/courses
     get:
       tags: 
         - "Course"
@@ -877,6 +739,30 @@ paths:
         405:
           description: "Invalid input"
 
+  /courses/{idCourse}:
+    parameters:
+      - name: idCourse
+        in: path
+        description: ID
+        required: true
+        type: string
+        x-example: "092781356221"
+    delete:
+      tags: 
+        - "Course"
+      summary: Delete Course By Id
+      operationId: "DeleteCourseById"
+      produces: 
+      - "application/json"
+        
+      responses:
+        204: 
+          description: 'successful'
+        400:
+          description: "invalid input"
+        404: 
+          description: 'not found'
+
     put:
       summary: Update Course
       produces: 
@@ -884,7 +770,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Update Test"
+        description: "Update Course"
         required: true
         schema:
           $ref: "#/definitions/Courses"
@@ -897,38 +783,8 @@ paths:
         404:
           description: "Course not found"
 
-  /courses/{idCourse}:
-    parameters:
-      - name: idCourse
-        in: path
-        description: ID to delete
-        required: true
-        type: string
-        x-example: "092781356221"
-    delete:
-      tags: 
-        - "Course"
-      summary: Delete Course By Id
-      operationId: "DeleteCourseById"
-      produces: 
-      - "application/json"
-      parameters:
-      - name: "idCourse"
-        in: "path"
-        description: "Course id to delete"
-        required: true
-        type: "integer"
-        
-      responses:
-        204: 
-          description: 'successful'
-        400:
-          description: "invalid input"
-        404: 
-          description: 'not found'
-
   /delivery:
-    x-summary: /deliveries
+    x-summary: /v1/deliveries
     get:
       tags: 
         - "Delivery"
@@ -986,6 +842,14 @@ definitions:
         format: "email"
       password:
         type: "string"
+    required:
+      - idStudent
+      - nameStudent
+    example:
+      idStudent: 753847
+      nameStudent: "Alessandro"
+      emailStudent: "alessandro.wioqe@sue.com"
+      password: "Pkejfwie84"
 
   Professors:
     type: "object"
@@ -999,47 +863,84 @@ definitions:
         format: "email"
       password:
         type: "string"
+    required: 
+      - idProfessor
+      - nameProfessor 
+    example: 
+      idProfessor: 12273
+      nameProfessor: "Matteo"
+      emailProfessor: "matteo.ghgh@ueh.com"
+      password: "SedqjER-2jhd"
 
   Tests: 
-   type: "object"
-   properties:
-    idTest:
-      type: "integer"
-    nameTest: 
-      type: "string"
-    question:
-      type: "array"
-      items: 
-        type: "object"
-        properties:
-          idQuestion:
-            type: "integer"
-          text: 
-            type: "string"
+    type: "object"
+    properties:
+      idTest:
+        type: "integer"
+      nameTest: 
+        type: "string"
+      questions:
+        type: "array"
+        items: 
+          type: "object"
+          properties:
+            idQuestion:
+              type: "integer"
+    required: 
+      - idTest
+      - nameTest
+    example:
+      idTest: 28939123
+      nameTest: analisi
+      questions: [918239,10293810,123810,12831]
+
 
 
   Exams: 
-   type: "object"
-   properties:
-    idExam:
-      type: "integer"
-    nameExam: 
-      type: "string"
-    idProfessor:
-      type: "integer"
-    idCourse: 
-      type: "integer"
-    deadline:
-      type: "string"
-      format: "date-time"
-    examType:
-      type: "string"
-      description: "Type of Exam"
-      enum:
-        - "oral"
-        - "write"
-        - "practical"
-  
+    type: "object"
+    properties:
+      idExam:
+        type: "integer"
+      nameExam: 
+        type: "string"
+      idProfessor:
+        type: "integer"
+      idCourse: 
+        type: "integer"
+      idTest:
+        type: "integer"
+      deadline:
+        type: "string"
+        format: "date-time"
+      examType:
+        type: "string"
+        description: "Type of Exam"
+        enum:
+          - "oral"
+          - "write"
+          - "practical"
+      description:
+        type: "string"
+    required:
+      - idExam
+      - nameExam
+      - idProfessor
+      - idCourse
+      - idTest
+      - deadline 
+      - examType
+      
+    example:
+      idExam: 9283091
+      nameExam: "analisi 1"
+      idProfessor: 1672488
+      idCourse: 8823749
+      idTest: 58379842
+      deadline: "2018-12-06 12:34:21"
+      examType: 'oral'
+      description: "gfuytjftesythjhtfyghhkuiygfyrsawrsfdhfj"
+      
+
   Assignments:
     type: "object"
     properties:
@@ -1059,6 +960,25 @@ definitions:
       obligatory:
         type: "boolean"
         default: false
+      descriprion:
+        type: "string"
+    required:
+      - idAssignment
+      - nameAssignment
+      - idTest
+      - idProfessor
+      - idCourse
+      - deadline
+      - obligatory
+    example: 
+      idAssignment: 9283091
+      nameAssignment: "assignment 1"
+      idProfessor: 1672488
+      idCourse: 8823749
+      idTest: 58379842
+      deadline: "2018-12-06 12:34:21"
+      obligatory: true
+      description: "wqhjfghjqwhfiuqwfio"
 
   Workgroups:
     type: "object"
@@ -1074,23 +994,14 @@ definitions:
           properties:
             idStudent:
               type: "integer"
-            
-  Workgroups|idWorkgoup|posts:
-    type: "object"
-    properties:
-      idWorkgroup:
-        type: "integer"
-      idPost:
-        type: "integer"
-      Posts:
-        type: "array"
-        items: 
-          type: "object"
-          properties:
-            idStudent:
-              type: "integer"
-            message: 
-              type: "string"
+    required:
+      - idWorkgroup
+      - nameWorkgroup
+      - Members
+    example:
+      idWorkgroup: 2988497
+      nameWorkgroup: "iProjectIS2"
+      Members: array
   
   Books:
     type: "object"
@@ -1106,7 +1017,22 @@ definitions:
       sold:
         type: "boolean"
         default: false
-        
+      deadline: 
+        type: "string"
+        format: "date-time"
+    required: 
+      - idBook
+      - idStudent
+      - deadline 
+      - sold
+    example:
+      idBook: 34290239
+      title: "cavanda & Co."
+      idStudent: 567320
+      idCourse: 6948248
+      sold: "false"
+      deadline: "2018-12-13 14:07:56"
+ 
   Courses:
     type: "object"
     properties:
@@ -1153,7 +1079,7 @@ definitions:
       idDelivery: 8749387
       idStudent: 3346896
       idExam: 78997667
-      answer: array
+      answer: ["vero","Parigi","1492","impero romano"]
       deadline: "2018-12-13 15:02:30"
       
 responses:
@@ -1172,7 +1098,7 @@ securityDefinitions:
      type: apiKey
      in: header
      name: token_in_header
- 
+    
 parameters:
   tokenHeaderParam:
     in: header
